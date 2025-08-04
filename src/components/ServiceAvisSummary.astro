@@ -1,24 +1,31 @@
 ---
+import db from '@lib/db';
+
 export interface Props {
   serviceId: string | number;
 }
 const { serviceId } = Astro.props;
+
 let avis = [];
 let moyenne = null;
-let loading = true;
 try {
-  const res = await fetch(`/api/avis-db?serviceId=${serviceId}`);
-  if (res.ok) {
-    avis = await res.json();
-    if (avis.length) {
-      moyenne = (avis.reduce((acc: any, a: any) => acc + (a.note || 0), 0 as any) / avis.length).toFixed(1);
-    }
+  avis = db.prepare('SELECT * FROM avis WHERE serviceId = ? ORDER BY id ASC').all(serviceId);
+  if (avis.length) {
+    moyenne = (avis.reduce((acc: any, a: any) => acc + (a.note || 0), 0) / avis.length).toFixed(1);
   }
-} catch {}
-loading = false;
+} catch (e) {
+  console.error('Error fetching service avis:', e);
+  avis = [];
+}
 ---
-{!loading && avis.length > 0 ? (
-  <div class="flex items-center gap-2 text-yellow-600 text-sm">{moyenne} / 5 ({avis.length} avis)</div>
+{avis.length > 0 ? (
+  <div class="flex items-center gap-2 text-luxury-secondary text-sm">
+    <div class="flex text-xs">
+      {'★'.repeat(Math.floor(parseFloat(moyenne || '0')))}{'☆'.repeat(5 - Math.floor(parseFloat(moyenne || '0')))}
+    </div>
+    <span class="text-luxury-primary font-medium">{moyenne} / 5</span>
+    <span class="text-luxury-taupe">({avis.length} avis)</span>
+  </div>
 ) : (
-  <div class="text-gray-400 text-sm">Aucun avis</div>
+  <div class="text-luxury-taupe/60 text-sm">Soyez le premier à laisser un avis</div>
 )}

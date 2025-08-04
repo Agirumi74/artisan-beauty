@@ -192,31 +192,97 @@ try {
 
   {/* Section Avis sur nos services (carousel global) */}
 
-  <section class="container mx-auto py-12">
-    <h2 class="text-3xl font-bold mb-6 text-pink-700 text-center">Avis sur nos services</h2>
-    <ServicesAvisCarousel avis={allServiceAvis} />
+  <section class="section-luxury py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Témoignages clients
+        </div>
+        <h2 class="text-display font-heading text-luxury-primary mb-6">
+          Elles nous font
+          <span class="block text-luxury-secondary">Confiance</span>
+        </h2>
+      </div>
+      <ServicesAvisCarousel avis={allServiceAvis} />
+    </div>
   </section>
 
   {/* Section Galerie des services (carousel global) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-3xl font-bold mb-6 text-pink-700 text-center">Galerie des services</h2>
-    <ServicesGalleryCarousel images={allServiceImages} />
+  <section class="section-luxury-accent py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Portfolio services
+        </div>
+        <h2 class="text-display font-heading text-luxury-primary mb-6">
+          Galerie
+          <span class="block text-luxury-secondary">des Services</span>
+        </h2>
+      </div>
+      <ServicesGalleryCarousel images={allServiceImages} />
+    </div>
   </section>
 
   {/* Section FAQ services (liste globale) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-3xl font-bold mb-6 text-pink-700 text-center">Questions fréquentes sur les services</h2>
-    <ServicesFaqList faqs={allServiceFaqs} />
+  <section class="section-luxury py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Questions fréquentes
+        </div>
+        <h2 class="text-display font-heading text-luxury-primary mb-6">
+          Tout savoir sur
+          <span class="block text-luxury-secondary">nos services</span>
+        </h2>
+      </div>
+      <ServicesFaqList faqs={allServiceFaqs} />
+    </div>
   </section>
 
+
   {/* CTA final */}
-  <section class="container mx-auto py-12 flex flex-col items-center">
-    <div class="bg-pink-100 rounded-2xl shadow-lg p-10 flex flex-col items-center max-w-2xl">
-      <h3 class="text-2xl font-bold text-pink-700 mb-4 text-center">Prête à sublimer votre beauté ?</h3>
-      <p class="text-gray-700 mb-6 text-center">Contactez-moi pour un devis personnalisé ou réservez directement votre séance de maquillage à Annecy.</p>
-      <div class="flex gap-4">
-        <Button href="/contact" variant="primary" size="lg">Contact</Button>
-        <Button href="/reservations" variant="secondary" size="lg">Réserver</Button>
+  <section class="section-luxury-hero py-20">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="luxury-glass-effect rounded-3xl p-12 text-center max-w-4xl mx-auto border border-luxury-primary/20">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Prête pour votre transformation ?
+        </div>
+        <h2 class="text-display font-heading text-luxury-primary mb-6">
+          Réservez Votre
+          <span class="block text-luxury-secondary">Séance d'Exception</span>
+        </h2>
+        <p class="text-subtitle mb-12 max-w-2xl mx-auto">
+          Contactez-moi pour un devis personnalisé ou réservez directement votre moment de beauté. 
+          Ensemble, créons le look parfait pour sublimer votre personnalité unique.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+          <a href="/reservations" class="btn-luxury-primary">
+            Réserver maintenant
+          </a>
+          <a href="/contact" class="btn-luxury-secondary">
+            Demander un devis
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-luxury-primary/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-luxury-primary text-2xl">✨</span>
+            </div>
+            <div class="text-luxury-primary font-medium">Consultation gratuite</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-luxury-primary/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-luxury-primary text-2xl">💎</span>
+            </div>
+            <div class="text-luxury-primary font-medium">Devis sur-mesure</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-luxury-primary/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-luxury-primary text-2xl">⭐</span>
+            </div>
+            <div class="text-luxury-primary font-medium">Satisfaction garantie</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
