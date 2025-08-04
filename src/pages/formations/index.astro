@@ -5,7 +5,6 @@ import FormationAvisSummary from '../../components/FormationAvisSummary.astro';
 import FormationsAvisCarousel from '../../components/FormationsAvisCarousel.astro';
 import FormationsGalleryCarousel from '../../components/FormationsGalleryCarousel.astro';
 import FormationsFaqList from '../../components/FormationsFaqList.astro';
-import Button from '../../components/starwind/button/Button.astro';
 import db from '@lib/db';
 import type { Formation } from '../../types/Formation';
 let formations: Formation[] = [];
@@ -17,68 +16,264 @@ try {
 ---
 
 <Layout>
-  {/* Hero section */}
-  <section class="relative bg-gradient-to-br from-pink-100 to-pink-300 py-16 mb-12">
-    <div class="container mx-auto flex flex-col md:flex-row items-center gap-10">
-      <div class="flex-1 text-center md:text-left">
-        <h1 class="text-5xl font-extrabold text-pink-700 mb-4">Formations maquillage à Annecy</h1>
-        <p class="text-lg text-gray-700 mb-6 max-w-xl">Développez vos compétences ou découvrez l’art du maquillage avec des formations professionnelles, ludiques et adaptées à tous les niveaux. Inscrivez-vous ou demandez un devis personnalisé !</p>
-        <Button href="/contact" variant="primary" size="lg">Demander un devis</Button>
-      </div>
-      <div class="flex-1 flex justify-center">
-        <img src="/assets/cours.jpg" alt="Formation maquillage Annecy" class="rounded-3xl shadow-2xl w-96 h-72 object-cover border-4 border-pink-200" loading="lazy" />
-      </div>
-    </div>
-  </section>
-
-  {/* Liste des formations */}
-  <section class="container mx-auto py-8">
-    <h2 class="text-3xl font-bold mb-8 text-pink-700 text-center">Nos Formations</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {formations.length === 0 ? (
-        <div class="bg-yellow-100 text-yellow-800 p-4 rounded col-span-3">Aucune formation trouvée.</div>
-      ) : (
-        formations.map((formation: any) => (
-          <div class="bg-white rounded shadow p-6 flex flex-col">
-            {formation.image ? (
-              <img src={formation.image} alt={formation.titre} class="w-full h-40 object-cover rounded mb-4" loading="lazy" />
-            ) : null}
-            <h2 class="text-xl font-bold mb-2 text-pink-700">{formation.titre}</h2>
-            <div class="mb-2 text-gray-600">{formation.duree ? `Durée : ${formation.duree}` : ''} {formation.niveau ? `| Niveau : ${formation.niveau}` : ''}</div>
-            <p class="mb-2 text-gray-700 line-clamp-3">{formation.description || ''}</p>
-            <div class="font-bold text-pink-700 text-lg mb-4">{formation.prix} €</div>
-            <FormationAvisSummary formationId={formation.id} />
-            <a href={`/formations/${formation.slug}`} class="bg-pink-700 text-white px-4 py-2 rounded hover:bg-pink-800 text-center mt-auto block mt-4">Voir la formation</a>
+  <!-- Luxury Hero Section -->
+  <section class="section-luxury-hero relative min-h-[70vh] flex items-center overflow-hidden">
+    <!-- Background Decorative Elements -->
+    <div class="absolute top-20 left-10 w-40 h-40 bg-luxury-primary/10 rounded-full blur-3xl animate-luxury-fade-in"></div>
+    <div class="absolute bottom-20 right-10 w-60 h-60 bg-luxury-secondary/10 rounded-full blur-3xl animate-luxury-fade-in" style="animation-delay: 0.5s;"></div>
+    <div class="absolute top-1/3 right-1/4 w-20 h-20 bg-luxury-accent/20 rounded-full blur-2xl"></div>
+    
+    <div class="container mx-auto px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Hero Content -->
+        <div class="text-center lg:text-left animate-luxury-slide-in">
+          <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+            Formations d'Excellence • Annecy
           </div>
-        ))
-      )}
+          
+          <h1 class="text-hero font-heading mb-8 leading-tight">
+            Formations
+            <span class="block text-luxury-secondary">Maquillage Professionnel</span>
+          </h1>
+          
+          <p class="text-subtitle mb-12 max-w-2xl mx-auto lg:mx-0">
+            Développez vos compétences ou découvrez l'art du maquillage avec des formations 
+            professionnelles, ludiques et adaptées à tous les niveaux dans notre académie d'exception.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-12">
+            <a href="/contact" class="btn-luxury-primary animate-luxury-scale-in" style="animation-delay: 0.3s;">
+              Demander un devis
+            </a>
+            <a href="#formations" class="btn-luxury-secondary animate-luxury-scale-in" style="animation-delay: 0.6s;">
+              Découvrir nos formations
+            </a>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-8 justify-center lg:justify-start text-center">
+            <div class="animate-luxury-scale-in" style="animation-delay: 0.4s;">
+              <div class="text-luxury-primary text-2xl font-heading mb-1">+10</div>
+              <div class="text-luxury-light text-sm">Formations certifiantes</div>
+            </div>
+            <div class="animate-luxury-scale-in" style="animation-delay: 0.6s;">
+              <div class="text-luxury-primary text-2xl font-heading mb-1">★★★★★</div>
+              <div class="text-luxury-light text-sm">Pédagogie d'excellence</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="relative animate-luxury-slide-in" style="animation-delay: 0.3s;">
+          <img 
+            src="/assets/cours.jpg" 
+            alt="Formation maquillage professionnel à Annecy" 
+            class="rounded-3xl shadow-luxury-strong w-full h-96 lg:h-[500px] object-cover" 
+            loading="eager" 
+          />
+          
+          <!-- Floating Cards -->
+          <div class="absolute -top-4 -left-4 card-luxury p-4 w-32 text-center animate-luxury-scale-in" style="animation-delay: 0.8s;">
+            <div class="text-luxury-primary text-2xl mb-1">🎓</div>
+            <div class="text-luxury-dark text-xs font-medium">Formation</div>
+            <div class="text-luxury-light text-xs">Certifiante</div>
+          </div>
+          
+          <div class="absolute -bottom-4 -right-4 card-luxury p-4 w-32 text-center animate-luxury-scale-in" style="animation-delay: 1s;">
+            <div class="text-luxury-primary text-2xl mb-1">✨</div>
+            <div class="text-luxury-dark text-xs font-medium">Expertise</div>
+            <div class="text-luxury-light text-xs">Professionnelle</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  {/* Section Avis sur nos formations (carousel global) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-2xl font-bold mb-6 text-pink-700 text-center">Avis sur nos formations</h2>
-    <FormationsAvisCarousel />
+  <!-- Formations Section with Luxury Styling -->
+  <section class="section-luxury py-16" id="formations">
+    <div class="container mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-16 animate-luxury-slide-in">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Excellence • Pédagogie
+        </div>
+        <h2 class="text-display font-heading text-luxury-primary mb-6">
+          Nos Formations
+          <span class="block text-luxury-secondary">d'Exception</span>
+        </h2>
+        <p class="text-subtitle max-w-3xl mx-auto">
+          Découvrez notre gamme complète de formations professionnelles, chacune pensée pour développer vos compétences avec expertise et bienveillance.
+        </p>
+        <div class="luxury-divider"></div>
+      </div>
+
+      <!-- Formations Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {formations.length === 0 ? (
+          <div class="col-span-3 text-center p-12 card-luxury">
+            <div class="text-luxury-primary text-4xl mb-4">🎓</div>
+            <h3 class="text-title font-heading text-luxury-primary mb-4">Formations à venir</h3>
+            <p class="text-luxury-light">Nos formations seront bientôt disponibles. Contactez-nous pour être informé(e) en priorité.</p>
+          </div>
+        ) : (
+          formations.map((formation: any, index: number) => (
+            <div class={`card-luxury-featured group hover:scale-105 transition-all duration-500 animate-luxury-scale-in`} style={`animation-delay: ${index * 0.1}s;`}>
+              <!-- Formation Image -->
+              <div class="relative overflow-hidden rounded-t-xl">
+                {formation.image ? (
+                  <img 
+                    src={formation.image} 
+                    alt={formation.titre} 
+                    class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500" 
+                    loading="lazy" 
+                  />
+                ) : (
+                  <div class="h-56 flex items-center justify-center bg-luxury-champagne text-luxury-taupe">
+                    <div class="text-center">
+                      <div class="text-4xl mb-2">🎓</div>
+                      <div class="text-sm">{formation.titre}</div>
+                    </div>
+                  </div>
+                )}
+                
+                <!-- Floating Price Badge -->
+                <div class="absolute top-4 right-4 bg-luxury-primary text-white px-3 py-1 rounded-full text-sm font-medium shadow-luxury-soft">
+                  {formation.prix} €
+                </div>
+              </div>
+
+              <!-- Formation Content -->
+              <div class="p-6 flex-1 flex flex-col">
+                <div class="flex-1">
+                  <h3 class="text-title font-heading text-luxury-primary mb-3 group-hover:text-luxury-secondary transition-colors">
+                    {formation.titre}
+                  </h3>
+                  
+                  <div class="flex gap-2 mb-4">
+                    {formation.duree && (
+                      <span class="px-3 py-1 bg-luxury-gold-accent text-luxury-dark text-xs uppercase tracking-wider rounded-full">
+                        {formation.duree}
+                      </span>
+                    )}
+                    {formation.niveau && (
+                      <span class="px-3 py-1 bg-luxury-rose-accent text-luxury-dark text-xs uppercase tracking-wider rounded-full">
+                        {formation.niveau}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <p class="text-luxury-light mb-6 line-clamp-3 leading-relaxed">
+                    {formation.description}
+                  </p>
+                </div>
+                
+                <!-- Formation Action -->
+                <div class="mt-auto">
+                  <a 
+                    href={`/formations/${formation.slug}`} 
+                    class="btn-luxury-secondary w-full group-hover:bg-luxury-primary group-hover:text-white transition-all duration-300"
+                  >
+                    Découvrir cette formation
+                  </a>
+                </div>
+              </div>
+
+              <!-- Formation Reviews Summary -->
+              <div class="px-6 pb-6">
+                <FormationAvisSummary formationId={formation.id} />
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
   </section>
 
-  {/* Section Galerie des formations (carousel global) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-2xl font-bold mb-6 text-pink-700 text-center">Galerie des formations</h2>
-    <FormationsGalleryCarousel />
+  <!-- Testimonials Section -->
+  <section class="section-luxury-accent py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Témoignages étudiants
+        </div>
+        <h2 class="text-display font-heading mb-6">
+          Ils ont appris <span class="gradient-luxury-text">avec nous</span>
+        </h2>
+      </div>
+      <FormationsAvisCarousel />
+    </div>
   </section>
 
-  {/* Section FAQ Formations (liste globale) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-2xl font-bold mb-6 text-pink-700 text-center">Questions fréquentes sur les formations</h2>
-    <FormationsFaqList />
+  <!-- Gallery Section -->
+  <section class="section-luxury py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Portfolio formations
+        </div>
+        <h2 class="text-display font-heading mb-6">
+          Galerie <span class="gradient-luxury-text">Formations</span>
+        </h2>
+      </div>
+      <FormationsGalleryCarousel />
+    </div>
   </section>
 
-  {/* CTA final */}
-  <section class="container mx-auto py-12 flex flex-col items-center">
-    <div class="bg-pink-100 rounded-2xl shadow-lg p-10 flex flex-col items-center max-w-2xl">
-      <h3 class="text-2xl font-bold text-pink-700 mb-4 text-center">Prêt·e à vous former au maquillage ?</h3>
-      <p class="text-gray-700 mb-6 text-center">Contactez-moi pour un devis personnalisé ou inscrivez-vous à la formation de votre choix à Annecy.</p>
-      <Button href="/contact" variant="primary" size="lg">Contact</Button>
+  <!-- FAQ Section -->
+  <section class="section-luxury-accent py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Questions fréquentes
+        </div>
+        <h2 class="text-display font-heading mb-6">
+          Tout savoir sur <span class="gradient-luxury-text">nos formations</span>
+        </h2>
+      </div>
+      <FormationsFaqList />
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section-luxury-hero relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-luxury-primary opacity-10"></div>
+    <div class="container mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Prêt·e pour votre formation ?
+        </div>
+        <h2 class="text-display font-heading mb-8">
+          Rejoignez notre <span class="gradient-luxury-text">Académie d'Excellence</span>
+        </h2>
+        <p class="text-subtitle mb-12">
+          Contactez-moi pour un devis personnalisé ou inscrivez-vous à la formation de votre choix. 
+          Ensemble, développons vos compétences pour révéler votre talent artistique.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+          <a href="/contact" class="btn-luxury-primary text-lg px-8 py-4">
+            S'inscrire maintenant
+          </a>
+          <a href="/contact" class="btn-luxury-secondary text-lg px-8 py-4">
+            Demander des informations
+          </a>
+        </div>
+        
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap justify-center gap-8 text-sm text-luxury-light">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-luxury-primary rounded-full"></span>
+            <span>Formations certifiantes</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-luxury-primary rounded-full"></span>
+            <span>Pédagogie personnalisée</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-luxury-primary rounded-full"></span>
+            <span>Suivi professionnel</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
