@@ -100,15 +100,6 @@ try {
       </div>
     </div>
   </section>
-    <div class="container mx-auto flex flex-col md:flex-row items-center gap-10">
-      <div class="flex-1 text-center md:text-left">
-        <h1 class="text-5xl font-extrabold text-pink-700 mb-4">Découvrez nos services de maquillage à Annecy</h1>
-        <p class="text-lg text-gray-700 mb-6 max-w-xl">Maquillage professionnel, artistique, événementiel ou formation : sublimez chaque moment avec l’expertise d’une maquilleuse passionnée. Réservez votre séance ou demandez un devis personnalisé !</p>
-        <Button href="/contact" variant="primary" size="lg">Demander un devis</Button>
-      </div>
-      <div class="flex-1 flex justify-center">
-        <img src="/assets/mariee-annecy.jpg" alt="Maquillage professionnel Annecy à Annecy" class="rounded-3xl shadow-2xl w-96 h-72 object-cover border-4 border-pink-200" loading="lazy" />
-      </div>
   {/* Services Section with Luxury Styling */}
   <section class="section-luxury py-16" id="services">
     <div class="container mx-auto px-6 lg:px-8">
@@ -202,31 +193,94 @@ try {
 
   {/* Section Avis sur nos services (carousel global) */}
 
-  <section class="container mx-auto py-12">
-    <h2 class="text-3xl font-bold mb-6 text-pink-700 text-center">Avis sur nos services</h2>
-    <ServicesAvisCarousel avis={allServiceAvis} />
+  <!-- Testimonials Section -->
+  <section class="section-luxury">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Témoignages clients
+        </div>
+        <h2 class="text-display font-heading mb-6">
+          Avis sur <span class="gradient-luxury-text">Nos Services</span>
+        </h2>
+      </div>
+      <ServicesAvisCarousel avis={allServiceAvis} />
+    </div>
   </section>
 
   {/* Section Galerie des services (carousel global) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-3xl font-bold mb-6 text-pink-700 text-center">Galerie des services</h2>
-    <ServicesGalleryCarousel images={allServiceImages} />
+  <!-- Gallery Section -->
+  <section class="section-luxury-accent">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Portfolio artistique
+        </div>
+        <h2 class="text-display font-heading mb-6">
+          Galerie de <span class="gradient-luxury-text">Nos Services</span>
+        </h2>
+      </div>
+      <ServicesGalleryCarousel images={allServiceImages} />
+    </div>
   </section>
 
   {/* Section FAQ services (liste globale) */}
-  <section class="container mx-auto py-12">
-    <h2 class="text-3xl font-bold mb-6 text-pink-700 text-center">Questions fréquentes sur les services</h2>
-    <ServicesFaqList faqs={allServiceFaqs} />
+  <!-- FAQ Section -->
+  <section class="section-luxury">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Questions fréquentes
+        </div>
+        <h2 class="text-display font-heading mb-6">
+          Tout Savoir sur <span class="gradient-luxury-text">Nos Services</span>
+        </h2>
+      </div>
+      <ServicesFaqList faqs={allServiceFaqs} />
+    </div>
   </section>
-
-  {/* CTA final */}
-  <section class="container mx-auto py-12 flex flex-col items-center">
-    <div class="bg-pink-100 rounded-2xl shadow-lg p-10 flex flex-col items-center max-w-2xl">
-      <h3 class="text-2xl font-bold text-pink-700 mb-4 text-center">Prête à sublimer votre beauté ?</h3>
-      <p class="text-gray-700 mb-6 text-center">Contactez-moi pour un devis personnalisé ou réservez directement votre séance de maquillage à Annecy.</p>
-      <div class="flex gap-4">
-        <Button href="/contact" variant="primary" size="lg">Contact</Button>
-        <Button href="/reservations" variant="secondary" size="lg">Réserver</Button>
+    </div>
+  
+  <!-- Luxury CTA Section -->
+  <section class="section-luxury-hero relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-luxury-primary opacity-10"></div>
+    <div class="container mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Prête pour votre transformation ?
+        </div>
+        <h2 class="text-display font-heading mb-8">
+          Réservez Votre <span class="gradient-luxury-text">Service d'Exception</span>
+        </h2>
+        <p class="text-subtitle mb-12">
+          Contactez-moi pour un devis personnalisé ou réservez directement votre moment de beauté. 
+          Ensemble, créons le look parfait pour sublimer votre personnalité unique.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+          <a href="/contact" class="btn-luxury-primary text-lg px-8 py-4">
+            Demander un devis
+          </a>
+          <a href="/reservations" class="btn-luxury-secondary text-lg px-8 py-4">
+            Réserver maintenant
+          </a>
+        </div>
+        
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap justify-center gap-8 text-sm text-luxury-light">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-luxury-primary rounded-full"></span>
+            <span>Consultation gratuite</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-luxury-primary rounded-full"></span>
+            <span>Devis sur-mesure</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-luxury-primary rounded-full"></span>
+            <span>Satisfaction garantie</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
