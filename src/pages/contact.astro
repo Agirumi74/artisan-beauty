@@ -12,205 +12,250 @@ try {
 ---
 
 <Layout>
-  <!-- Hero section -->
-  <section class="relative bg-gradient-to-br from-pink-100 to-pink-300 py-16 mb-12">
-    <div class="container mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-pink-800 mb-4">Contactez-nous</h1>
-      <p class="text-lg md:text-xl text-pink-900 mb-2">
-        Une question ? Un projet ? Nous sommes là pour vous accompagner dans votre démarche beauté.
-      </p>
+  <!-- Luxury Hero Section -->
+  <section class="section-luxury-hero relative min-h-[60vh] flex items-center overflow-hidden">
+    <!-- Background Decorative Elements -->
+    <div class="absolute top-20 left-10 w-40 h-40 bg-luxury-primary/10 rounded-full blur-3xl animate-luxury-fade-in"></div>
+    <div class="absolute bottom-20 right-10 w-60 h-60 bg-luxury-secondary/10 rounded-full blur-3xl animate-luxury-fade-in" style="animation-delay: 0.5s;"></div>
+    <div class="absolute top-1/3 right-1/4 w-20 h-20 bg-luxury-accent/20 rounded-full blur-2xl"></div>
+    
+    <div class="container mx-auto px-6 lg:px-8 relative z-10 text-center">
+      <div class="animate-luxury-slide-in">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Contact • Artisan Beauty
+        </div>
+        
+        <h1 class="text-hero font-heading mb-6 leading-tight">
+          Une Question ?
+          <span class="block text-luxury-secondary">Contactez-nous</span>
+        </h1>
+        
+        <p class="text-subtitle mb-8 max-w-2xl mx-auto">
+          Nous sommes là pour vous accompagner dans votre démarche beauté avec expertise et bienveillance.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="container mx-auto py-12">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-      <!-- Contact Information -->
-      <div class="space-y-8">
-        <div>
-          <h2 class="text-2xl font-bold text-pink-700 mb-6">Nos coordonnées</h2>
-          
-          <div class="space-y-4">
-            {siteInfo.adresse && (
-              <div class="flex items-start gap-3">
-                <div class="text-pink-600 mt-1">📍</div>
-                <div>
-                  <div class="font-semibold text-gray-800">Adresse</div>
-                  <div class="text-gray-600">
-                    {siteInfo.adresse}<br />
-                    {siteInfo.codePostal} {siteInfo.ville}
-                    {siteInfo.pays && <>, {siteInfo.pays}</>}
+  <!-- Main Content Section -->
+  <section class="section-luxury py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <!-- Contact Information -->
+        <div class="space-y-12 animate-luxury-slide-in">
+          <div>
+            <h2 class="text-display font-heading text-luxury-primary mb-8">Nos Coordonnées</h2>
+            
+            <div class="space-y-6">
+              {siteInfo.adresse && (
+                <div class="flex items-start gap-4 p-4 bg-luxury-cream/30 rounded-xl hover:bg-luxury-cream/50 transition-colors duration-300">
+                  <div class="text-luxury-primary text-2xl mt-1">📍</div>
+                  <div>
+                    <div class="font-medium text-luxury-charcoal mb-1">Adresse</div>
+                    <div class="text-luxury-taupe">
+                      {siteInfo.adresse}<br />
+                      {siteInfo.codePostal} {siteInfo.ville}
+                      {siteInfo.pays && <>, {siteInfo.pays}</>}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-            
-            {siteInfo.telephone && (
-              <div class="flex items-start gap-3">
-                <div class="text-pink-600 mt-1">📞</div>
-                <div>
-                  <div class="font-semibold text-gray-800">Téléphone</div>
-                  <div class="text-gray-600">
-                    <a href={`tel:${siteInfo.telephone}`} class="hover:text-pink-700">
+              )}
+              
+              {siteInfo.telephone && (
+                <div class="flex items-start gap-4 p-4 bg-luxury-cream/30 rounded-xl hover:bg-luxury-cream/50 transition-colors duration-300">
+                  <div class="text-luxury-primary text-2xl mt-1">📞</div>
+                  <div>
+                    <div class="font-medium text-luxury-charcoal mb-1">Téléphone</div>
+                    <a href={`tel:${siteInfo.telephone}`} class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300">
                       {siteInfo.telephone}
                     </a>
                   </div>
                 </div>
-              </div>
-            )}
-            
-            {siteInfo.email && (
-              <div class="flex items-start gap-3">
-                <div class="text-pink-600 mt-1">📧</div>
-                <div>
-                  <div class="font-semibold text-gray-800">Email</div>
-                  <div class="text-gray-600">
-                    <a href={`mailto:${siteInfo.email}`} class="hover:text-pink-700">
+              )}
+              
+              {siteInfo.email && (
+                <div class="flex items-start gap-4 p-4 bg-luxury-cream/30 rounded-xl hover:bg-luxury-cream/50 transition-colors duration-300">
+                  <div class="text-luxury-primary text-2xl mt-1">📧</div>
+                  <div>
+                    <div class="font-medium text-luxury-charcoal mb-1">Email</div>
+                    <a href={`mailto:${siteInfo.email}`} class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300">
                       {siteInfo.email}
                     </a>
                   </div>
                 </div>
+              )}
+            </div>
+          </div>
+
+          <!-- Enhanced Information Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="card-luxury p-6 text-center animate-luxury-scale-in" style="animation-delay: 0.2s;">
+              <h3 class="text-title font-heading text-luxury-primary mb-3">Horaires d'ouverture</h3>
+              <div class="text-luxury-taupe space-y-1 text-sm">
+                {siteInfo.horaires ? (
+                  <div class="whitespace-pre-line">{siteInfo.horaires}</div>
+                ) : (
+                  <>
+                    <div>Lundi - Vendredi : 9h - 18h</div>
+                    <div>Samedi : 9h - 17h</div>
+                    <div>Dimanche : Sur rendez-vous</div>
+                  </>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-
-        {siteInfo.horaires && (
-          <div>
-            <h3 class="text-lg font-semibold text-pink-700 mb-3">Horaires d'ouverture</h3>
-            <div class="text-gray-600 whitespace-pre-line">{siteInfo.horaires}</div>
-          </div>
-        )}
-
-        <!-- Social Media Links -->
-        <div>
-          <h3 class="text-lg font-semibold text-pink-700 mb-3">Suivez-nous</h3>
-          <div class="flex gap-4">
-            {siteInfo.facebook && (
-              <a href={siteInfo.facebook} target="_blank" rel="noopener noreferrer" 
-                 class="text-pink-600 hover:text-pink-800 transition">
-                Facebook
-              </a>
-            )}
-            {siteInfo.instagram && (
-              <a href={siteInfo.instagram} target="_blank" rel="noopener noreferrer" 
-                 class="text-pink-600 hover:text-pink-800 transition">
-                Instagram
-              </a>
-            )}
-            {siteInfo.linkedin && (
-              <a href={siteInfo.linkedin} target="_blank" rel="noopener noreferrer" 
-                 class="text-pink-600 hover:text-pink-800 transition">
-                LinkedIn
-              </a>
-            )}
-            {siteInfo.youtube && (
-              <a href={siteInfo.youtube} target="_blank" rel="noopener noreferrer" 
-                 class="text-pink-600 hover:text-pink-800 transition">
-                YouTube
-              </a>
-            )}
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h3 class="text-lg font-semibold text-pink-700 mb-3">Liens rapides</h3>
-          <div class="space-y-2">
-            <div>
-              <a href="/reservations" class="text-pink-600 hover:text-pink-800 transition">
-                → Réserver une prestation
-              </a>
             </div>
-            <div>
-              <a href="/services" class="text-pink-600 hover:text-pink-800 transition">
-                → Découvrir nos services
-              </a>
-            </div>
-            <div>
-              <a href="/formations" class="text-pink-600 hover:text-pink-800 transition">
-                → Nos formations
-              </a>
-            </div>
-            <div>
-              <a href="/galerie" class="text-pink-600 hover:text-pink-800 transition">
-                → Voir notre galerie
-              </a>
+            
+            <div class="card-luxury p-6 text-center animate-luxury-scale-in" style="animation-delay: 0.4s;">
+              <h3 class="text-title font-heading text-luxury-primary mb-3">Suivez-nous</h3>
+              <div class="flex justify-center gap-4 flex-wrap">
+                {siteInfo.facebook && (
+                  <a href={siteInfo.facebook} target="_blank" rel="noopener noreferrer" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">Facebook</a>
+                )}
+                {siteInfo.instagram && (
+                  <a href={siteInfo.instagram} target="_blank" rel="noopener noreferrer" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">Instagram</a>
+                )}
+                {siteInfo.linkedin && (
+                  <a href={siteInfo.linkedin} target="_blank" rel="noopener noreferrer" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">LinkedIn</a>
+                )}
+                {siteInfo.youtube && (
+                  <a href={siteInfo.youtube} target="_blank" rel="noopener noreferrer" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">YouTube</a>
+                )}
+                {!siteInfo.facebook && !siteInfo.instagram && !siteInfo.linkedin && !siteInfo.youtube && (
+                  <>
+                    <a href="https://facebook.com/maquilleuse.annecy" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">Facebook</a>
+                    <a href="https://instagram.com/maquilleuse_annecy" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">Instagram</a>
+                    <a href="https://linkedin.com/in/maquilleuse-annecy" class="text-luxury-taupe hover:text-luxury-primary transition-colors duration-300 transform hover:scale-110">LinkedIn</a>
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="bg-white rounded-xl shadow-lg p-8">
-        <h2 class="text-2xl font-bold text-pink-700 mb-6">Envoyez-nous un message</h2>
-        
-        <form id="contact-form" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="prenom" class="block font-semibold text-gray-700 mb-1">
-                Prénom <span class="text-red-500">*</span>
-              </label>
-              <input id="prenom" name="prenom" type="text" required 
-                     class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                     placeholder="Votre prénom" />
-            </div>
-            <div>
-              <label for="nom" class="block font-semibold text-gray-700 mb-1">
-                Nom <span class="text-red-500">*</span>
-              </label>
-              <input id="nom" name="nom" type="text" required 
-                     class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                     placeholder="Votre nom" />
-            </div>
-          </div>
-
-          <div>
-            <label for="email" class="block font-semibold text-gray-700 mb-1">
-              Email <span class="text-red-500">*</span>
-            </label>
-            <input id="email" name="email" type="email" required 
-                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                   placeholder="votre@email.com" />
-          </div>
-
-          <div>
-            <label for="telephone" class="block font-semibold text-gray-700 mb-1">Téléphone</label>
-            <input id="telephone" name="telephone" type="tel" 
-                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                   placeholder="06 12 34 56 78" />
-          </div>
-
-          <div>
-            <label for="sujet" class="block font-semibold text-gray-700 mb-1">
-              Sujet <span class="text-red-500">*</span>
-            </label>
-            <select id="sujet" name="sujet" required 
-                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500">
-              <option value="">Choisissez un sujet...</option>
-              <option value="reservation">Demande de réservation</option>
-              <option value="information">Demande d'information</option>
-              <option value="formation">Question sur les formations</option>
-              <option value="devis">Demande de devis</option>
-              <option value="autre">Autre</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="message" class="block font-semibold text-gray-700 mb-1">
-              Message <span class="text-red-500">*</span>
-            </label>
-            <textarea id="message" name="message" rows="5" required 
-                      class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500" 
-                      placeholder="Décrivez votre demande, vos besoins, vos questions..."></textarea>
-          </div>
-
-          <button type="submit" 
-                  class="w-full bg-pink-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-800 transition">
-            Envoyer le message
-          </button>
           
-          <div id="contact-feedback" class="mt-4 text-center"></div>
-        </form>
+          <!-- Luxury Quick Links -->
+          <div class="card-luxury-featured p-8 animate-luxury-scale-in" style="animation-delay: 0.6s;">
+            <h3 class="text-title font-heading text-luxury-primary mb-6 text-center">Liens Rapides</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <a href="/reservations" class="flex items-center gap-2 text-luxury-taupe hover:text-luxury-primary transition-all duration-300 group">
+                <span class="text-luxury-primary group-hover:translate-x-1 transition-transform">→</span>
+                <span class="text-sm">Réserver une prestation</span>
+              </a>
+              <a href="/services" class="flex items-center gap-2 text-luxury-taupe hover:text-luxury-primary transition-all duration-300 group">
+                <span class="text-luxury-primary group-hover:translate-x-1 transition-transform">→</span>
+                <span class="text-sm">Découvrir nos services</span>
+              </a>
+              <a href="/formations" class="flex items-center gap-2 text-luxury-taupe hover:text-luxury-primary transition-all duration-300 group">
+                <span class="text-luxury-primary group-hover:translate-x-1 transition-transform">→</span>
+                <span class="text-sm">Nos formations</span>
+              </a>
+              <a href="/galerie" class="flex items-center gap-2 text-luxury-taupe hover:text-luxury-primary transition-all duration-300 group">
+                <span class="text-luxury-primary group-hover:translate-x-1 transition-transform">→</span>
+                <span class="text-sm">Voir notre galerie</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="animate-luxury-slide-in" style="animation-delay: 0.3s;">
+          <div class="card-luxury p-8">
+            <h2 class="text-display font-heading text-luxury-primary mb-8 text-center">Envoyez-nous un Message</h2>
+            <form id="contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label for="prenom" class="font-accent text-luxury-charcoal text-sm uppercase tracking-wider mb-2 block">
+                    Prénom <span class="text-luxury-secondary">*</span>
+                  </label>
+                  <input 
+                    id="prenom"
+                    type="text" 
+                    name="prenom" 
+                    required 
+                    class="w-full px-4 py-3 border border-luxury-champagne rounded-lg focus:ring-2 focus:ring-luxury-primary focus:border-transparent transition-all duration-300 bg-luxury-ivory" 
+                    placeholder="Votre prénom"
+                  />
+                </div>
+                <div>
+                  <label for="nom" class="font-accent text-luxury-charcoal text-sm uppercase tracking-wider mb-2 block">
+                    Nom <span class="text-luxury-secondary">*</span>
+                  </label>
+                  <input 
+                    id="nom"
+                    type="text" 
+                    name="nom" 
+                    required 
+                    class="w-full px-4 py-3 border border-luxury-champagne rounded-lg focus:ring-2 focus:ring-luxury-primary focus:border-transparent transition-all duration-300 bg-luxury-ivory" 
+                    placeholder="Votre nom"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label for="email" class="font-accent text-luxury-charcoal text-sm uppercase tracking-wider mb-2 block">
+                  Email <span class="text-luxury-secondary">*</span>
+                </label>
+                <input 
+                  id="email"
+                  type="email" 
+                  name="email" 
+                  required 
+                  class="w-full px-4 py-3 border border-luxury-champagne rounded-lg focus:ring-2 focus:ring-luxury-primary focus:border-transparent transition-all duration-300 bg-luxury-ivory" 
+                  placeholder="votre@email.com"
+                />
+              </div>
+              
+              <div>
+                <label for="telephone" class="font-accent text-luxury-charcoal text-sm uppercase tracking-wider mb-2 block">
+                  Téléphone
+                </label>
+                <input 
+                  id="telephone"
+                  type="tel" 
+                  name="telephone" 
+                  class="w-full px-4 py-3 border border-luxury-champagne rounded-lg focus:ring-2 focus:ring-luxury-primary focus:border-transparent transition-all duration-300 bg-luxury-ivory" 
+                  placeholder="06 12 34 56 78"
+                />
+              </div>
+              
+              <div>
+                <label for="sujet" class="font-accent text-luxury-charcoal text-sm uppercase tracking-wider mb-2 block">
+                  Sujet <span class="text-luxury-secondary">*</span>
+                </label>
+                <select 
+                  id="sujet"
+                  name="sujet" 
+                  required 
+                  class="w-full px-4 py-3 border border-luxury-champagne rounded-lg focus:ring-2 focus:ring-luxury-primary focus:border-transparent transition-all duration-300 bg-luxury-ivory"
+                >
+                  <option value="">Choisissez un sujet...</option>
+                  <option value="reservation">Demande de réservation</option>
+                  <option value="information">Demande d'information</option>
+                  <option value="formation">Question sur les formations</option>
+                  <option value="devis">Demande de devis</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="message" class="font-accent text-luxury-charcoal text-sm uppercase tracking-wider mb-2 block">
+                  Message <span class="text-luxury-secondary">*</span>
+                </label>
+                <textarea 
+                  id="message"
+                  name="message" 
+                  required 
+                  rows="5" 
+                  class="w-full px-4 py-3 border border-luxury-champagne rounded-lg focus:ring-2 focus:ring-luxury-primary focus:border-transparent transition-all duration-300 bg-luxury-ivory resize-none" 
+                  placeholder="Décrivez votre demande, vos besoins, vos questions..."
+                ></textarea>
+              </div>
+              
+              <button type="submit" class="btn-luxury-primary w-full animate-luxury-scale-in" style="animation-delay: 0.8s;">
+                Envoyer le message
+              </button>
+              
+              <div id="contact-feedback" class="mt-4 text-center"></div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </section>
