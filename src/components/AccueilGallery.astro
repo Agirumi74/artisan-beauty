@@ -4,16 +4,172 @@ export interface Props { images: any[] }
 const { images = [] } = Astro.props;
 ---
 {images.length > 0 ? (
-  <div class="mt-12">
-    <h2 class="text-2xl font-bold mb-4 text-pink-700">Galerie</h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {images.map((img) => (
-        <img src={img.imageUrl} alt={img.title} class="w-full h-40 object-cover rounded shadow" loading="lazy" />
-      ))}
+  <>
+    <div class="mt-12">
+      <h2 class="text-title font-heading mb-8 text-center">
+        <span class="gradient-luxury-text">Galerie</span> Inspiration
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {images.map((img, index) => (
+          <div class="image-overlay-luxury card-luxury hover-lift-gentle cursor-pointer accueil-gallery-item overflow-hidden"
+               data-src={img.imageUrl} 
+               data-title={img.title}
+               data-index={index}>
+            <img 
+              src={img.imageUrl} 
+              alt={img.title || `Galerie image ${index + 1}`} 
+              class="w-full h-32 object-cover transition-transform duration-500"
+              loading="lazy" 
+            />
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-luxury-primary bg-opacity-20">
+              <div class="glass-morphism-strong p-3 rounded-full">
+                <svg class="w-6 h-6 text-brand-ivory" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
+
+    <!-- Accueil Gallery Modal -->
+    <div id="accueil-gallery-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 backdrop-blur-sm">
+      <div class="absolute inset-4 flex items-center justify-center">
+        <div class="relative max-w-6xl max-h-full flex items-center justify-center">
+          <!-- Close button -->
+          <button id="close-accueil-modal" class="absolute top-4 right-4 z-10 glass-morphism-strong p-3 rounded-full hover-glow">
+            <svg class="w-6 h-6 text-brand-ivory" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+          
+          <!-- Previous button -->
+          <button id="prev-accueil-image" class="absolute left-4 top-1/2 transform -translate-y-1/2 glass-morphism-strong p-3 rounded-full hover-glow">
+            <svg class="w-6 h-6 text-brand-ivory" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+          
+          <!-- Next button -->
+          <button id="next-accueil-image" class="absolute right-4 top-1/2 transform -translate-y-1/2 glass-morphism-strong p-3 rounded-full hover-glow">
+            <svg class="w-6 h-6 text-brand-ivory" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          
+          <!-- Image container -->
+          <div class="text-center">
+            <img id="accueil-modal-image" src="" alt="" class="max-w-full max-h-[calc(100vh-200px)] object-contain rounded-xl shadow-luxury-strong">
+            <h3 id="accueil-modal-title" class="mt-4 font-heading text-xl text-brand-ivory shimmer-text"></h3>
+            <div id="accueil-modal-counter" class="mt-2 font-accent text-sm text-brand-champagne uppercase tracking-wider"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const galleryItems = document.querySelectorAll('.accueil-gallery-item');
+        const modal = document.getElementById('accueil-gallery-modal');
+        const modalImage = document.getElementById('accueil-modal-image');
+        const modalTitle = document.getElementById('accueil-modal-title');
+        const modalCounter = document.getElementById('accueil-modal-counter');
+        const closeModal = document.getElementById('close-accueil-modal');
+        const prevImage = document.getElementById('prev-accueil-image');
+        const nextImage = document.getElementById('next-accueil-image');
+        
+        let currentIndex = 0;
+        const images = Array.from(galleryItems).map(item => ({
+          src: item.dataset.src,
+          title: item.dataset.title || '',
+          index: parseInt(item.dataset.index)
+        }));
+
+        function showImage(index) {
+          if (index < 0 || index >= images.length) return;
+          
+          currentIndex = index;
+          const image = images[index];
+          
+          modalImage.src = image.src;
+          modalImage.alt = image.title;
+          modalTitle.textContent = image.title;
+          modalCounter.textContent = `${index + 1} / ${images.length}`;
+          
+          // Add fade animation
+          modalImage.style.opacity = '0';
+          setTimeout(() => {
+            modalImage.style.opacity = '1';
+          }, 50);
+        }
+
+        function openModal(index) {
+          modal.classList.remove('hidden');
+          document.body.classList.add('overflow-hidden');
+          showImage(index);
+        }
+
+        function closeModalFunc() {
+          modal.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+
+        // Event listeners
+        galleryItems.forEach((item, index) => {
+          item.addEventListener('click', () => openModal(index));
+        });
+
+        closeModal?.addEventListener('click', closeModalFunc);
+        
+        prevImage?.addEventListener('click', () => {
+          const newIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
+          showImage(newIndex);
+        });
+        
+        nextImage?.addEventListener('click', () => {
+          const newIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
+          showImage(newIndex);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (modal?.classList.contains('hidden')) return;
+          
+          switch(e.key) {
+            case 'Escape':
+              closeModalFunc();
+              break;
+            case 'ArrowLeft':
+              const prevIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
+              showImage(prevIndex);
+              break;
+            case 'ArrowRight':
+              const nextIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
+              showImage(nextIndex);
+              break;
+          }
+        });
+
+        // Close modal on background click
+        modal?.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeModalFunc();
+          }
+        });
+      });
+    </script>
+  </>
 ) : (
   <div class="mt-12">
-    <Alert variant="info">Aucune image globale à afficher pour le moment.</Alert>
+    <div class="card-luxury p-8 text-center max-w-md mx-auto">
+      <div class="w-16 h-16 bg-gradient-luxury-primary rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-2xl">📷</span>
+      </div>
+      <h3 class="font-heading text-luxury-primary text-lg mb-2">Aucune image disponible</h3>
+      <p class="font-body text-luxury-light text-sm">
+        Les images de la galerie seront bientôt disponibles.
+      </p>
+    </div>
   </div>
 )}

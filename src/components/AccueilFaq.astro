@@ -5,18 +5,39 @@ const { faqs = [] } = Astro.props;
 ---
 {faqs.length > 0 ? (
   <div class="mt-12">
-    <h2 class="text-2xl font-bold mb-4 text-pink-700">Questions fréquentes</h2>
-    <ul class="list-disc ml-6 text-left">
-      {faqs.map((f) => (
-        <li class="mb-2">
-          <span class="font-semibold text-pink-700">{f.question}</span><br />
-          <span class="text-gray-700">{f.reponse}</span>
-        </li>
+    <h2 class="text-title font-heading mb-8 text-center">
+      <span class="gradient-luxury-text">Questions</span> Fréquentes
+    </h2>
+    <div class="space-y-6 max-w-4xl mx-auto">
+      {faqs.map((f, index) => (
+        <div class={`card-luxury p-6 hover-lift-gentle animate-luxury-fade-in animate-stagger-${(index % 6) + 1}`}>
+          <div class="flex items-start gap-4">
+            <div class="w-8 h-8 bg-gradient-luxury-primary rounded-full flex items-center justify-center text-brand-ivory font-bold text-sm flex-shrink-0">
+              ?
+            </div>
+            <div class="flex-1">
+              <h3 class="font-accent text-luxury-primary uppercase tracking-wider text-sm mb-3">
+                {f.question}
+              </h3>
+              <p class="font-body text-luxury-dark leading-relaxed">
+                {f.reponse}
+              </p>
+            </div>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   </div>
 ) : (
   <div class="mt-12">
-    <Alert variant="info">Aucune question fréquente globale à afficher pour le moment.</Alert>
+    <div class="card-luxury p-8 text-center max-w-md mx-auto">
+      <div class="w-16 h-16 bg-gradient-luxury-primary rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-2xl">❓</span>
+      </div>
+      <h3 class="font-heading text-luxury-primary text-lg mb-2">Aucune question pour le moment</h3>
+      <p class="font-body text-luxury-light text-sm">
+        Les questions fréquentes seront bientôt disponibles pour vous accompagner.
+      </p>
+    </div>
   </div>
 )}

@@ -5,19 +5,54 @@ const { avis = [] } = Astro.props;
 ---
 {avis.length > 0 ? (
   <div class="mt-12">
-    <h2 class="text-2xl font-bold mb-4 text-pink-700">Avis clients</h2>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {avis.map((a) => (
-        <li class="bg-gray-50 p-4 rounded shadow text-left">
-          <div class="font-semibold">{a.utilisateur}</div>
-          <div class="text-sm text-gray-600 mb-1">{a.commentaire}</div>
-          <div class="text-xs text-yellow-600">{a.note} / 5</div>
-        </li>
+    <h2 class="text-title font-heading mb-8 text-center">
+      Avis <span class="gradient-luxury-text">Clients</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {avis.map((a, index) => (
+        <div class={`card-luxury hover-lift p-6 animate-luxury-fade-in animate-stagger-${(index % 6) + 1}`}>
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-12 h-12 bg-gradient-luxury-primary rounded-full flex items-center justify-center text-brand-ivory font-heading text-lg flex-shrink-0">
+              {(a.utilisateur || 'U').charAt(0).toUpperCase()}
+            </div>
+            <div class="flex-1">
+              <h3 class="font-accent text-luxury-primary uppercase tracking-wider text-sm mb-1">
+                {a.utilisateur || 'Utilisateur anonyme'}
+              </h3>
+              <div class="flex items-center gap-1 mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <span class={`text-lg ${i < (a.note || 0) ? 'text-luxury-primary' : 'text-luxury-light'}`}>
+                    ⭐
+                  </span>
+                ))}
+                <span class="ml-2 text-sm font-body text-luxury-light">
+                  {a.note || 0}/5
+                </span>
+              </div>
+            </div>
+          </div>
+          <blockquote class="font-body text-luxury-dark leading-relaxed italic">
+            "{a.commentaire || 'Aucun commentaire'}"
+          </blockquote>
+          <div class="mt-4 pt-4 border-t border-luxury">
+            <div class="text-xs font-accent text-luxury-light uppercase tracking-wider">
+              Avis vérifié • Global
+            </div>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   </div>
 ) : (
   <div class="mt-12">
-    <Alert variant="info">Aucun avis global à afficher pour le moment.</Alert>
+    <div class="card-luxury p-8 text-center max-w-md mx-auto">
+      <div class="w-16 h-16 bg-gradient-luxury-primary rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-2xl">💬</span>
+      </div>
+      <h3 class="font-heading text-luxury-primary text-lg mb-2">Aucun avis pour le moment</h3>
+      <p class="font-body text-luxury-light text-sm">
+        Partagez votre expérience et aidez d'autres clients à découvrir nos services.
+      </p>
+    </div>
   </div>
 )}
