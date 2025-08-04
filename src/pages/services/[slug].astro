@@ -27,54 +27,156 @@ try {
 }
 ---
 <Layout>
-  <section class="container mx-auto py-12">
-    {service && service.nom ? (
-      <>
-        <div class="flex flex-col md:flex-row gap-8 items-start">
-          {service.image && (
-            <img src={service.image} alt={service.imageAlt || service.nom} class="w-full md:w-1/3 rounded shadow mb-6 md:mb-0" loading="lazy" />
-          )}
-          <div class="flex-1">
-            <h1 class="text-3xl font-bold mb-4 text-pink-700 flex items-center gap-2">
-              {service.icon && <span class={`inline-block icon-${service.icon} text-2xl`} aria-hidden="true"></span>}
-              {service.nom}
-              {service.isFeatured ? <span class="ml-2 px-2 py-1 bg-yellow-200 text-yellow-800 rounded text-xs font-bold">En vedette</span> : null}
-              {(!service.isActive) ? <span class="ml-2 px-2 py-1 bg-gray-300 text-gray-700 rounded text-xs font-bold">Inactif</span> : null}
-            </h1>
-            <div class="flex gap-2 mb-2 flex-wrap">
-              {service.categorie && <span class="inline-block bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-semibold">{service.categorie}</span>}
-              {service.duree && <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{service.duree}</span>}
-              {service.durationMinutes && <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{service.durationMinutes} min</span>}
-              {service.tags && service.tags.length > 0 && service.tags.map(tag => <span class="inline-block bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">{tag}</span>)}
-            </div>
-            <p class="mb-2 text-lg">{service.description}</p>
-            {service.content && <div class="mb-2 text-base text-gray-700"><b>Contenu :</b> {service.content}</div>}
-            {service.notes && <div class="mb-2 text-sm text-gray-500"><b>Notes :</b> {service.notes}</div>}
-            {service.steps && service.steps.length > 0 && (
-              <ol class="list-decimal list-inside mb-2 text-sm text-gray-700">
-                {service.steps.map(step => <li>{step}</li>)}
-              </ol>
+  <!-- Hero Section -->
+  <section class="section-luxury-hero">
+    <div class="container mx-auto px-4">
+      {service && service.nom ? (
+        <div class="card-luxury hover-lift p-8 max-w-6xl mx-auto">
+          <div class="flex flex-col lg:flex-row gap-8 items-start">
+            {service.image && (
+              <div class="w-full lg:w-2/5 image-overlay-luxury rounded-2xl overflow-hidden">
+                <img 
+                  src={service.image} 
+                  alt={service.imageAlt || service.nom} 
+                  class="w-full h-80 object-cover transition-transform duration-500"
+                  loading="lazy" 
+                />
+              </div>
             )}
-            <div class="font-bold text-pink-700 text-2xl mb-8">{service.prix} €</div>
-            <a href={`/reservations?service=${service.slug}`} class="bg-pink-700 text-white px-6 py-3 rounded hover:bg-pink-800">Réserver ce service</a>
-            <div class="mt-6">
-              <ServiceGallery images={images} />
+            <div class="flex-1 space-y-6">
+              <div class="space-y-4">
+                <h1 class="text-hero font-heading shimmer-text flex items-center gap-3">
+                  {service.icon && <span class={`inline-block icon-${service.icon} text-4xl text-luxury-primary`} aria-hidden="true"></span>}
+                  {service.nom}
+                </h1>
+                
+                {/* Status badges */}
+                <div class="flex gap-3 flex-wrap">
+                  {service.isFeatured && (
+                    <span class="glass-morphism px-4 py-2 rounded-full text-sm font-accent text-luxury-primary border border-luxury">
+                      ✨ En vedette
+                    </span>
+                  )}
+                  {(!service.isActive) && (
+                    <span class="bg-luxury-neutral px-4 py-2 rounded-full text-sm font-accent text-luxury-light border border-luxury">
+                      Inactif
+                    </span>
+                  )}
+                </div>
+                
+                {/* Category and duration tags */}
+                <div class="flex gap-3 mb-6 flex-wrap">
+                  {service.categorie && (
+                    <span class="bg-luxury-primary text-brand-ivory px-4 py-2 rounded-full text-sm font-accent uppercase tracking-wider">
+                      {service.categorie}
+                    </span>
+                  )}
+                  {service.duree && (
+                    <span class="bg-luxury-accent text-luxury-dark px-4 py-2 rounded-full text-sm font-accent">
+                      {service.duree}
+                    </span>
+                  )}
+                  {service.durationMinutes && (
+                    <span class="bg-luxury-accent text-luxury-dark px-4 py-2 rounded-full text-sm font-accent">
+                      {service.durationMinutes} min
+                    </span>
+                  )}
+                </div>
+
+                {/* Tags */}
+                {service.tags && service.tags.length > 0 && (
+                  <div class="flex gap-2 flex-wrap">
+                    {service.tags.map(tag => (
+                      <span class="glass-morphism-strong px-3 py-1 rounded-full text-xs font-body text-luxury-primary">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                <p class="text-subtitle font-body leading-relaxed">{service.description}</p>
+                
+                {service.content && (
+                  <div class="bg-luxury-neutral p-6 rounded-xl border border-luxury">
+                    <h3 class="font-heading text-lg text-luxury-primary mb-2">Contenu du service</h3>
+                    <p class="font-body text-luxury-dark">{service.content}</p>
+                  </div>
+                )}
+                
+                {service.notes && (
+                  <div class="bg-luxury-accent p-4 rounded-lg border border-luxury">
+                    <h4 class="font-accent text-sm text-luxury-primary mb-1 uppercase tracking-wider">Notes importantes</h4>
+                    <p class="font-body text-sm text-luxury-light">{service.notes}</p>
+                  </div>
+                )}
+                
+                {service.steps && service.steps.length > 0 && (
+                  <div class="card-luxury p-6">
+                    <h3 class="font-heading text-lg text-luxury-primary mb-4">Déroulement du service</h3>
+                    <ol class="space-y-3">
+                      {service.steps.map((step, index) => (
+                        <li class="flex items-start gap-3">
+                          <span class="bg-gradient-luxury-primary text-brand-ivory w-6 h-6 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                            {index + 1}
+                          </span>
+                          <span class="font-body text-luxury-dark">{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+              </div>
+              
+              {/* Pricing and CTA */}
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6 border-t border-luxury">
+                <div class="font-heading text-4xl shimmer-text">{service.prix} €</div>
+                <a 
+                  href={`/reservations?service=${service.slug}`} 
+                  class="btn-luxury-primary btn-shine hover-lift-gentle animate-pulse-glow"
+                >
+                  Réserver ce service
+                </a>
+              </div>
             </div>
           </div>
+          
+          {/* Gallery Section */}
+          {images && images.length > 0 && (
+            <div class="mt-12 pt-8 border-t border-luxury">
+              <h2 class="text-headline font-heading text-luxury-primary mb-6 text-center">Galerie</h2>
+              <ServiceGallery images={images} />
+            </div>
+          )}
         </div>
-        {/* Section avis */}
-        <div class="mt-12">
-          <h2 class="text-xl font-bold mb-4 text-pink-700">Avis sur ce service</h2>
+      ) : (
+        <div class="card-luxury p-8 text-center max-w-md mx-auto">
+          <div class="text-warning-luxury text-lg font-accent uppercase tracking-wider mb-2">Service introuvable</div>
+          <p class="font-body text-luxury-light">Le service demandé n'existe pas ou a été supprimé.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {service && service.nom && (
+    <>
+      {/* Reviews Section */}
+      <section class="section-luxury">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-12">
+            <h2 class="text-headline font-heading text-luxury-primary mb-4">Avis sur ce service</h2>
+            <div class="luxury-divider"></div>
+          </div>
           <ServiceAvis avis={avis} />
         </div>
-        {/* Section FAQ dynamique */}
-        <div class="mt-12">
+      </section>
+
+      {/* FAQ Section */}
+      <section class="section-luxury-accent">
+        <div class="container mx-auto px-4">
           <ServiceFaq faqs={faqs} />
         </div>
-      </>
-    ) : (
-      <div class="bg-yellow-100 text-yellow-800 p-4 rounded">Service introuvable.</div>
-    )}
-  </section>
+      </section>
+    </>
+  )}
 </Layout>
 

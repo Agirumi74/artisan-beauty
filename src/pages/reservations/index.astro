@@ -28,78 +28,209 @@ if (formationSlug) {
 }
 ---
 <Layout>
-  <section class="container mx-auto py-12">
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-3xl font-bold mb-6 text-pink-700 text-center">
-        {preselectedService ? `Réserver le service : ${preselectedService.nom}` : preselectedFormation ? `Inscription à la formation : ${preselectedFormation.titre}` : 'Réserver une prestation'}
-      </h1>
-      {(preselectedService || preselectedFormation) && (
-        <div class="bg-pink-50 rounded-xl shadow p-6 mb-8 flex gap-6 items-center">
-          <img src={preselectedService?.image || preselectedFormation?.image} alt={preselectedService?.nom || preselectedFormation?.titre} class="w-32 h-32 object-cover rounded-xl border-2 border-pink-200" loading="lazy" />
-          <div>
-            <div class="font-bold text-lg text-pink-700 mb-1">{preselectedService?.nom || preselectedFormation?.titre}</div>
-            <div class="text-gray-600 mb-1">{preselectedService?.categorie || preselectedFormation?.categorie}</div>
-            <div class="text-gray-700 mb-2 line-clamp-2">{preselectedService?.description || preselectedFormation?.description}</div>
-            <div class="font-bold text-pink-700 text-xl">{preselectedService?.prix || preselectedFormation?.prix} €</div>
+  <!-- Hero Section -->
+  <section class="section-luxury-hero">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+          <h1 class="text-hero font-heading shimmer-text mb-4">
+            {preselectedService ? `Réserver le service` : preselectedFormation ? `Inscription à la formation` : 'Réserver une prestation'}
+          </h1>
+          <div class="luxury-divider"></div>
+          <p class="font-body text-luxury-light mt-4">
+            Complétez le formulaire ci-dessous pour finaliser votre réservation
+          </p>
+        </div>
+
+        {/* Preselected Service/Formation Card */}
+        {(preselectedService || preselectedFormation) && (
+          <div class="card-luxury-featured hover-lift p-8 mb-12">
+            <div class="flex flex-col md:flex-row gap-6 items-center">
+              {(preselectedService?.image || preselectedFormation?.image) && (
+                <div class="image-overlay-luxury rounded-xl overflow-hidden flex-shrink-0">
+                  <img 
+                    src={preselectedService?.image || preselectedFormation?.image} 
+                    alt={preselectedService?.nom || preselectedFormation?.titre} 
+                    class="w-full md:w-40 h-40 object-cover"
+                    loading="lazy" 
+                  />
+                </div>
+              )}
+              <div class="flex-1 text-center md:text-left">
+                <div class="flex items-center gap-3 mb-2 justify-center md:justify-start">
+                  {preselectedService && (
+                    <span class="bg-luxury-primary text-brand-ivory px-3 py-1 rounded-full text-xs font-accent uppercase tracking-wider">
+                      Service
+                    </span>
+                  )}
+                  {preselectedFormation && (
+                    <span class="bg-gradient-luxury-primary text-brand-ivory px-3 py-1 rounded-full text-xs font-accent uppercase tracking-wider">
+                      Formation
+                    </span>
+                  )}
+                  {(preselectedService?.categorie || preselectedFormation?.categorie) && (
+                    <span class="bg-luxury-accent text-luxury-dark px-3 py-1 rounded-full text-xs font-accent">
+                      {preselectedService?.categorie || preselectedFormation?.categorie}
+                    </span>
+                  )}
+                </div>
+                <h2 class="font-heading text-2xl text-luxury-primary mb-2">
+                  {preselectedService?.nom || preselectedFormation?.titre}
+                </h2>
+                <p class="font-body text-luxury-light mb-4 line-clamp-2">
+                  {preselectedService?.description || preselectedFormation?.description}
+                </p>
+                <div class="font-heading text-3xl shimmer-text">
+                  {preselectedService?.prix || preselectedFormation?.prix} €
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Reservation Form */}
+        <div class="card-luxury p-8">
+          <form id="reservation-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block font-accent text-luxury-primary uppercase tracking-wider text-sm mb-2">
+                  Nom complet *
+                </label>
+                <input 
+                  type="text" 
+                  name="userId" 
+                  required 
+                  class="w-full px-4 py-3 border border-luxury rounded-xl bg-luxury-neutral focus:border-luxury-primary focus:ring-2 focus:ring-luxury-primary focus:ring-opacity-20 transition-all duration-300 font-body"
+                  placeholder="Votre nom complet" 
+                />
+              </div>
+              
+              <div>
+                <label class="block font-accent text-luxury-primary uppercase tracking-wider text-sm mb-2">
+                  Email
+                </label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  class="w-full px-4 py-3 border border-luxury rounded-xl bg-luxury-neutral focus:border-luxury-primary focus:ring-2 focus:ring-luxury-primary focus:ring-opacity-20 transition-all duration-300 font-body"
+                  placeholder="votre@email.com" 
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block font-accent text-luxury-primary uppercase tracking-wider text-sm mb-2">
+                  Date souhaitée *
+                </label>
+                <input 
+                  type="date" 
+                  name="date" 
+                  required 
+                  class="w-full px-4 py-3 border border-luxury rounded-xl bg-luxury-neutral focus:border-luxury-primary focus:ring-2 focus:ring-luxury-primary focus:ring-opacity-20 transition-all duration-300 font-body"
+                  min={new Date().toISOString().split('T')[0]} 
+                />
+              </div>
+              
+              <div>
+                <label class="block font-accent text-luxury-primary uppercase tracking-wider text-sm mb-2">
+                  Heure souhaitée *
+                </label>
+                <input 
+                  type="time" 
+                  name="time" 
+                  required 
+                  class="w-full px-4 py-3 border border-luxury rounded-xl bg-luxury-neutral focus:border-luxury-primary focus:ring-2 focus:ring-luxury-primary focus:ring-opacity-20 transition-all duration-300 font-body"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-accent text-luxury-primary uppercase tracking-wider text-sm mb-2">
+                Téléphone
+              </label>
+              <input 
+                type="tel" 
+                name="telephone" 
+                class="w-full px-4 py-3 border border-luxury rounded-xl bg-luxury-neutral focus:border-luxury-primary focus:ring-2 focus:ring-luxury-primary focus:ring-opacity-20 transition-all duration-300 font-body"
+                placeholder="+33 6 12 34 56 78" 
+              />
+            </div>
+
+            <div>
+              <label class="block font-accent text-luxury-primary uppercase tracking-wider text-sm mb-2">
+                Notes complémentaires
+              </label>
+              <textarea 
+                name="notes" 
+                rows="4"
+                class="w-full px-4 py-3 border border-luxury rounded-xl bg-luxury-neutral focus:border-luxury-primary focus:ring-2 focus:ring-luxury-primary focus:ring-opacity-20 transition-all duration-300 font-body resize-none"
+                placeholder="Précisez un besoin spécifique, une allergie, ou toute information utile..."
+              ></textarea>
+            </div>
+
+            <div class="bg-luxury-accent p-6 rounded-xl border border-luxury">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-info-luxury rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-xs text-white">ℹ</span>
+                </div>
+                <div>
+                  <h3 class="font-accent text-luxury-primary uppercase tracking-wider text-sm mb-1">
+                    Information importante
+                  </h3>
+                  <p class="font-body text-luxury-dark text-sm">
+                    Votre réservation sera confirmée dans les 24h par notre équipe. 
+                    Vous recevrez un email de confirmation avec tous les détails.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hidden fields for preselected items -->
+            {preselectedService && (
+              <input type="hidden" name="serviceId" value={preselectedService.id} />
+            )}
+            {preselectedFormation && (
+              <input type="hidden" name="formationId" value={preselectedFormation.id} />
+            )}
+
+            <div class="text-center pt-6">
+              <button 
+                type="submit" 
+                class="btn-luxury-primary btn-shine hover-lift-gentle animate-pulse-glow text-lg px-8 py-4"
+              >
+                {preselectedService ? 'Confirmer la réservation' : 'Confirmer l\'inscription'}
+              </button>
+            </div>
+          </form>
+
+          <!-- Success message (hidden by default) -->
+          <div id="reservation-success" class="hidden card-luxury-featured p-6 mt-6 text-center">
+            <div class="w-16 h-16 bg-success-luxury rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">✓</span>
+            </div>
+            <h3 class="font-heading text-luxury-primary text-xl mb-2">Réservation confirmée !</h3>
+            <p class="font-body text-luxury-dark">
+              Votre demande a été enregistrée avec succès. Vous recevrez une confirmation par email.
+            </p>
           </div>
         </div>
-      )}
-      <form id="reservation-form" class="bg-white rounded shadow p-8 flex flex-col gap-4" on:submit|preventDefault={async (e: SubmitEvent) => {
-        const form = e.target as HTMLFormElement;
-        const submitBtn = form.querySelector('button[type=submit]') as HTMLButtonElement;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Envoi en cours...';
-        const data = {
-          userId: (form.elements.namedItem('userId') as HTMLInputElement)?.value,
-          serviceId: service ? service.id : null,
-          formationId: formation ? formation.id : null,
-          date: (form.elements.namedItem('date') as HTMLInputElement)?.value,
-          time: (form.elements.namedItem('time') as HTMLInputElement)?.value,
-          status: 'pending',
-          notes: (form.elements.namedItem('notes') as HTMLInputElement)?.value
-        };
-        const res = await fetch('/api/reservation-db', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        if (res.ok) {
-          const result = await res.json();
-          window.location.href = `/reservations/confirmation?id=${result.id}`;
-        } else {
-          alert('Erreur lors de la réservation.');
-        }
-        submitBtn.disabled = false;
-        submitBtn.textContent = service ? 'Valider la réservation' : 'Valider l’inscription';
-      }}>
-        <label class="font-semibold">Votre nom (obligatoire)
-          <input type="text" name="userId" required class="input input-bordered w-full" placeholder="Votre nom complet" />
-        </label>
-        <label class="font-semibold">Date souhaitée
-          <input type="date" name="date" required class="input input-bordered w-full" min={new Date().toISOString().split('T')[0]} />
-        </label>
-        <label class="font-semibold">Heure souhaitée
-          <input type="time" name="time" required class="input input-bordered w-full" />
-        </label>
-        <label class="font-semibold">Notes complémentaires
-          <textarea name="notes" class="input input-bordered w-full" placeholder="Précisez un besoin, une allergie, etc."></textarea>
-        </label>
-        <button type="submit" class="bg-pink-700 text-white px-6 py-3 rounded hover:bg-pink-800 transition">{preselectedService ? 'Valider la réservation' : 'Valider l’inscription'}</button>
-        <div id="reservation-success" style="display:none" class="bg-green-100 text-green-800 p-4 rounded mt-4 text-center font-semibold">Votre réservation a bien été enregistrée ! Vous recevrez une confirmation par email.</div>
-      </form>
+      </div>
     </div>
   </section>
 
   <script>
     // Handle form submission
     const form = document.getElementById('reservation-form');
-    form.addEventListener('submit', async (e) => {
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi en cours...';
+      const originalText = submitBtn?.textContent;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi en cours...';
+      }
       
       // Get form data
       const formData = new FormData(form);
@@ -135,8 +266,10 @@ if (formationSlug) {
         alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
       }
       
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText || 'Confirmer';
+      }
     });
   </script>
 </Layout>
