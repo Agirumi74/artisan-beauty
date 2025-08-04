@@ -1,6 +1,128 @@
 ---
+import LuxuryLogo from './LuxuryLogo.astro';
+
 const year = new Date().getFullYear();
 ---
-<footer class="w-full bg-gray-100 py-6 px-8 text-center text-gray-600 mt-12">
-  <p>&copy; {year} Maquilleuse Annecy. Tous droits réservés.</p>
+
+<footer class="bg-luxury-dark text-luxury-light overflow-hidden relative">
+  <!-- Decorative Top Border -->
+  <div class="h-1 bg-gradient-luxury-primary"></div>
+  
+  <div class="container mx-auto px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      
+      <!-- Brand Section -->
+      <div class="lg:col-span-2">
+        <div class="mb-6">
+          <LuxuryLogo size="lg" showTagline={true} />
+        </div>
+        <p class="text-luxury-light leading-relaxed mb-6 max-w-md">
+          Votre maquilleuse professionnelle à Annecy. Sublimez chaque moment avec un maquillage sur-mesure, 
+          des formations certifiantes et une expérience client d'exception.
+        </p>
+        
+        <!-- Social Links -->
+        <div class="flex gap-4">
+          <a href="#" class="w-10 h-10 bg-luxury-primary/20 rounded-full flex items-center justify-center text-luxury-primary hover:bg-luxury-primary hover:text-white transition-all duration-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="w-10 h-10 bg-luxury-primary/20 rounded-full flex items-center justify-center text-luxury-primary hover:bg-luxury-primary hover:text-white transition-all duration-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-12C24.007 5.367 18.641.001 12.017.001z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="w-10 h-10 bg-luxury-primary/20 rounded-full flex items-center justify-center text-luxury-primary hover:bg-luxury-primary hover:text-white transition-all duration-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-12C24.007 5.367 18.641.001 12.017.001z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Quick Links -->
+      <div>
+        <h3 class="font-heading text-xl text-luxury-primary mb-6">Navigation</h3>
+        <ul class="space-y-3">
+          <li><a href="/" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">Accueil</a></li>
+          <li><a href="/services" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">Services</a></li>
+          <li><a href="/formations" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">Formations</a></li>
+          <li><a href="/galerie" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">Galerie</a></li>
+          <li><a href="/equipe" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">Équipe</a></li>
+          <li><a href="/contact" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">Contact</a></li>
+        </ul>
+      </div>
+      
+      <!-- Contact Info -->
+      <div>
+        <h3 class="font-heading text-xl text-luxury-primary mb-6">Contact</h3>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 text-luxury-primary mt-1">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-luxury-light">Annecy, Haute-Savoie</p>
+              <p class="text-luxury-light">Déplacements possibles</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 text-luxury-primary mt-1">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </div>
+            <p class="text-luxury-light">contact@artisan-beauty.com</p>
+          </div>
+          
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 text-luxury-primary mt-1">
+              <svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </div>
+            <p class="text-luxury-light">+33 (0)6 XX XX XX XX</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Divider -->
+    <div class="luxury-divider my-12"></div>
+    
+    <!-- Bottom Section -->
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <p class="text-luxury-light text-sm mb-4 md:mb-0">
+        &copy; {year} Artisan Beauty. Tous droits réservés.
+      </p>
+      
+      <div class="flex gap-6 text-sm">
+        <a href="/mentions-legales" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">
+          Mentions légales
+        </a>
+        <a href="/politique-confidentialite" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">
+          Confidentialité
+        </a>
+        <a href="/conditions-utilisation" class="text-luxury-light hover:text-luxury-primary transition-colors duration-300">
+          CGU
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Background Decoration -->
+  <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+    <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="luxury-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="10" cy="10" r="1" fill="currentColor" opacity="0.3"/>
+        </pattern>
+      </defs>
+      <rect width="100" height="100" fill="url(#luxury-pattern)"/>
+    </svg>
+  </div>
 </footer>

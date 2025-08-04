@@ -1,0 +1,121 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'primary' | 'light' | 'dark';
+  showTagline?: boolean;
+}
+
+const { size = 'md', variant = 'primary', showTagline = false } = Astro.props;
+
+const sizeClasses = {
+  sm: 'h-8',
+  md: 'h-12',
+  lg: 'h-16',
+  xl: 'h-24'
+};
+
+const textSizeClasses = {
+  sm: 'text-lg',
+  md: 'text-2xl',
+  lg: 'text-3xl',
+  xl: 'text-4xl'
+};
+
+const taglineSizeClasses = {
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base',
+  xl: 'text-lg'
+};
+---
+
+<div class="flex items-center gap-3">
+  <!-- Logo Icon -->
+  <div class={`${sizeClasses[size]} aspect-square flex items-center justify-center`}>
+    <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer Ring -->
+      <circle cx="50" cy="50" r="48" fill="none" 
+              stroke="url(#goldGradient)" 
+              stroke-width="2" 
+              opacity="0.6"/>
+      
+      <!-- Inner Decorative Ring -->
+      <circle cx="50" cy="50" r="38" fill="none" 
+              stroke="url(#roseGradient)" 
+              stroke-width="1" 
+              opacity="0.4"/>
+      
+      <!-- Central Makeup Brush -->
+      <g transform="translate(50,50)">
+        <!-- Brush Handle -->
+        <rect x="-1" y="-25" width="2" height="30" 
+              fill="url(#goldGradient)" 
+              rx="1"/>
+        
+        <!-- Brush Ferrule -->
+        <rect x="-2" y="-28" width="4" height="8" 
+              fill="url(#bronzeGradient)" 
+              rx="2"/>
+        
+        <!-- Brush Bristles -->
+        <path d="M-3,-30 Q0,-35 3,-30 Q0,-32 -3,-30" 
+              fill="url(#champagneGradient)" 
+              opacity="0.9"/>
+        
+        <!-- Decorative Dots -->
+        <circle cx="-12" cy="-8" r="1.5" fill="var(--brand-gold-primary)" opacity="0.7"/>
+        <circle cx="12" cy="-8" r="1.5" fill="var(--brand-rose-primary)" opacity="0.7"/>
+        <circle cx="-8" cy="15" r="1" fill="var(--brand-gold-light)" opacity="0.6"/>
+        <circle cx="8" cy="15" r="1" fill="var(--brand-rose-light)" opacity="0.6"/>
+      </g>
+      
+      <!-- Gradients Definition -->
+      <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:var(--brand-gold-light);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:var(--brand-gold-primary);stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="roseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:var(--brand-rose-light);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:var(--brand-rose-primary);stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="bronzeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:var(--brand-bronze);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:var(--brand-gold-dark);stop-opacity:1" />
+        </linearGradient>
+        
+        <linearGradient id="champagneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:var(--brand-champagne);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:var(--brand-cream);stop-opacity:1" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+  
+  <!-- Brand Text -->
+  <div class="flex flex-col">
+    <h1 class={`font-heading ${textSizeClasses[size]} gradient-luxury-text leading-tight`}>
+      Artisan Beauty
+    </h1>
+    {showTagline && (
+      <p class={`font-accent ${taglineSizeClasses[size]} text-luxury-light mt-1`}>
+        Sublimer votre beauté
+      </p>
+    )}
+  </div>
+</div>
+
+<style>
+  /* Animation for logo on hover */
+  .flex:hover svg {
+    animation: luxury-scale-in 0.3s ease-out;
+  }
+  
+  /* Subtle glow effect */
+  svg {
+    filter: drop-shadow(0 2px 8px rgba(201, 169, 110, 0.2));
+    transition: all 0.3s ease;
+  }
+</style>

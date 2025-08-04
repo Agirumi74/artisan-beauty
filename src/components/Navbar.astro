@@ -1,12 +1,114 @@
 
-<nav class="w-full bg-white shadow py-4 px-8 flex justify-between items-center">
-  <a href="/" class="font-bold text-xl">Maquilleuse Annecy</a>
-  <ul class="flex gap-6">
-    <li><a href="/" class="hover:text-primary">Accueil</a></li>
-    <li><a href="/services" class="hover:text-primary">Services</a></li>
-    <li><a href="/formations" class="hover:text-primary">Formations</a></li>
-    <li><a href="/galerie" class="hover:text-primary">Galerie</a></li>
-    <li><a href="/equipe" class="hover:text-primary">Équipe</a></li>
-    <li><a href="/contact" class="hover:text-primary">Contact</a></li>
-  </ul>
+---
+import LuxuryLogo from './LuxuryLogo.astro';
+---
+
+<nav class="w-full bg-luxury-neutral/95 backdrop-blur-md shadow-luxury border-b border-luxury sticky top-0 z-50 transition-all duration-300">
+  <div class="container mx-auto px-6 lg:px-8">
+    <div class="flex justify-between items-center py-4">
+      <!-- Logo -->
+      <a href="/" class="flex items-center transition-transform hover:scale-105">
+        <LuxuryLogo size="md" showTagline={false} />
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li>
+          <a href="/" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+            Accueil
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/services" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+            Services
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/formations" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+            Formations
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/galerie" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+            Galerie
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/equipe" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+            Équipe
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/contact" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+            Contact
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </li>
+      </ul>
+      
+      <!-- CTA Button -->
+      <div class="hidden md:flex">
+        <a href="/reservations" class="btn-luxury-primary">
+          Réserver
+        </a>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-luxury-dark hover:text-luxury-primary transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-luxury-accent/95 backdrop-blur-md rounded-xl mt-2 p-4 shadow-luxury">
+      <ul class="flex flex-col space-y-4">
+        <li><a href="/" class="block font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors py-2">Accueil</a></li>
+        <li><a href="/services" class="block font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors py-2">Services</a></li>
+        <li><a href="/formations" class="block font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors py-2">Formations</a></li>
+        <li><a href="/galerie" class="block font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors py-2">Galerie</a></li>
+        <li><a href="/equipe" class="block font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors py-2">Équipe</a></li>
+        <li><a href="/contact" class="block font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors py-2">Contact</a></li>
+        <li class="pt-4 border-t border-luxury">
+          <a href="/reservations" class="btn-luxury-primary w-full text-center">
+            Réserver
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+  
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-luxury-neutral/98');
+        navbar.classList.remove('bg-luxury-neutral/95');
+      } else {
+        navbar.classList.add('bg-luxury-neutral/95');
+        navbar.classList.remove('bg-luxury-neutral/98');
+      }
+    }
+  });
+</script>
