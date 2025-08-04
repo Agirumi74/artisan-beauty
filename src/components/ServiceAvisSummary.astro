@@ -6,6 +6,7 @@ const { serviceId } = Astro.props;
 let avis = [];
 let moyenne = null;
 let loading = true;
+
 try {
   const res = await fetch(`/api/avis-db?serviceId=${serviceId}`);
   if (res.ok) {
@@ -17,8 +18,27 @@ try {
 } catch {}
 loading = false;
 ---
+
 {!loading && avis.length > 0 ? (
-  <div class="flex items-center gap-2 text-yellow-600 text-sm">{moyenne} / 5 ({avis.length} avis)</div>
+  <div class="flex items-center gap-3 glass-morphism px-4 py-2 rounded-full">
+    <div class="flex items-center gap-1">
+      {[...Array(5)].map((_, i) => (
+        <span class={`text-sm ${i < Math.round(moyenne || 0) ? 'text-luxury-primary' : 'text-luxury-light'}`}>
+          ⭐
+        </span>
+      ))}
+    </div>
+    <div class="font-accent text-luxury-primary text-sm uppercase tracking-wider">
+      {moyenne} / 5
+    </div>
+    <div class="font-body text-luxury-light text-xs">
+      ({avis.length} avis)
+    </div>
+  </div>
 ) : (
-  <div class="text-gray-400 text-sm">Aucun avis</div>
+  <div class="glass-morphism px-4 py-2 rounded-full">
+    <span class="font-accent text-luxury-light text-xs uppercase tracking-wider">
+      Aucun avis
+    </span>
+  </div>
 )}

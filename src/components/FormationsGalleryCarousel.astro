@@ -2,6 +2,7 @@
 import Alert from './starwind/alert/Alert.astro';
 let images = [];
 let loading = true;
+
 try {
   // On récupère toutes les images liées à une formation (formationsGlobal=1 ou formationId non nul)
   const res = await fetch('/api/galerie-db?formationsGlobal=1');
@@ -11,17 +12,119 @@ try {
 } catch {}
 loading = false;
 ---
+
 {!loading && images.length > 0 ? (
-  <div class="w-full overflow-x-auto py-2">
-    <div class="flex gap-4 min-w-full">
-      {images.map((img: { imageUrl: string; title: string }) => (
-        <div class="bg-white rounded-xl shadow p-2 min-w-[180px] max-w-xs flex-shrink-0 flex flex-col items-center">
-          <img src={img.imageUrl} alt={img.title} class="w-40 h-32 object-cover rounded mb-2" loading="lazy" />
-          <div class="text-xs text-gray-700 text-center">{img.title}</div>
-        </div>
-      ))}
+  <>
+    <div class="w-full overflow-x-auto py-4">
+      <div class="flex gap-4 min-w-full pb-4">
+        {images.map((img: { imageUrl: string; title: string }, index: number) => (
+          <div class={`image-overlay-luxury card-luxury hover-lift-gentle cursor-pointer formation-carousel-item min-w-[180px] max-w-xs flex-shrink-0 overflow-hidden animate-luxury-scale-in animate-stagger-${(index % 4) + 1}`}
+               data-src={img.imageUrl} 
+               data-title={img.title}
+               data-index={index}>
+            <img 
+              src={img.imageUrl} 
+              alt={img.title || `Formation image ${index + 1}`} 
+              class="w-full h-32 object-cover transition-transform duration-500"
+              loading="lazy" 
+            />
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-luxury-primary bg-opacity-20">
+              <div class="glass-morphism-strong p-2 rounded-full">
+                <svg class="w-5 h-5 text-brand-ivory" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="p-3 bg-luxury-neutral">
+              <div class="text-xs font-accent text-luxury-primary uppercase tracking-wider text-center">
+                {img.title || `Formation ${index + 1}`}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
+
+    <!-- Formation Carousel Gallery Modal -->
+    <div id="formation-carousel-modal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 backdrop-blur-sm">
+      <div class="absolute inset-4 flex items-center justify-center">
+        <div class="relative max-w-6xl max-h-full flex items-center justify-center">
+          <!-- Close button -->
+          <button id="close-formation-carousel-modal" class="absolute top-4 right-4 z-10 glass-morphism-strong p-3 rounded-full hover-glow">
+            <svg class="w-6 h-6 text-brand-ivory" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+          
+          <!-- Image container -->
+          <div class="text-center">
+            <img id="formation-carousel-modal-image" src="" alt="" class="max-w-full max-h-[calc(100vh-200px)] object-contain rounded-xl shadow-luxury-strong">
+            <h3 id="formation-carousel-modal-title" class="mt-4 font-heading text-xl text-brand-ivory shimmer-text"></h3>
+            <div class="mt-2 font-accent text-sm text-brand-champagne uppercase tracking-wider">Formation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const galleryItems = document.querySelectorAll('.formation-carousel-item');
+        const modal = document.getElementById('formation-carousel-modal');
+        const modalImage = document.getElementById('formation-carousel-modal-image');
+        const modalTitle = document.getElementById('formation-carousel-modal-title');
+        const closeModal = document.getElementById('close-formation-carousel-modal');
+
+        function openModal(src, title) {
+          if (modal && modalImage && modalTitle) {
+            modalImage.src = src;
+            modalImage.alt = title;
+            modalTitle.textContent = title;
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+          }
+        }
+
+        function closeModalFunc() {
+          if (modal) {
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+          }
+        }
+
+        // Event listeners
+        galleryItems.forEach((item) => {
+          item.addEventListener('click', () => {
+            const src = item.dataset.src;
+            const title = item.dataset.title || 'Formation';
+            if (src) openModal(src, title);
+          });
+        });
+
+        closeModal?.addEventListener('click', closeModalFunc);
+
+        // Close modal on background click
+        modal?.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeModalFunc();
+          }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+            closeModalFunc();
+          }
+        });
+      });
+    </script>
+  </>
 ) : (!loading && images.length === 0) ? (
-  <Alert variant="info">Aucune image à afficher pour le moment.</Alert>
+  <div class="card-luxury p-6 text-center">
+    <div class="w-12 h-12 bg-gradient-luxury-primary rounded-full flex items-center justify-center mx-auto mb-3">
+      <span class="text-lg">🎓</span>
+    </div>
+    <p class="font-body text-luxury-light text-sm">
+      Aucune image à afficher pour le moment.
+    </p>
+  </div>
 ) : null}

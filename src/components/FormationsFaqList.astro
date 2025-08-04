@@ -2,6 +2,7 @@
 import Alert from './starwind/alert/Alert.astro';
 let faqs = [];
 let loading = true;
+
 try {
   // On récupère toutes les FAQ liées à une formation (formationsGlobal=1 ou formationId non nul)
   const res = await fetch('/api/faq-db?formationsGlobal=1');
@@ -11,15 +12,49 @@ try {
 } catch {}
 loading = false;
 ---
+
 {!loading && faqs.length > 0 ? (
-  <ul class="list-disc ml-6 text-left">
-    {faqs.map((f: { question: string; reponse: string }) => (
-      <li class="mb-2">
-        <span class="font-semibold text-pink-700">{f.question}</span><br />
-        <span class="text-gray-700">{f.reponse}</span>
-      </li>
+  <div class="space-y-4">
+    {faqs.map((f: { question: string; reponse: string }, index: number) => (
+      <details class={`card-luxury hover-lift group animate-luxury-fade-in animate-stagger-${(index % 6) + 1}`}>
+        <summary class="p-6 cursor-pointer list-none flex items-center justify-between">
+          <div class="flex items-start gap-4 flex-1">
+            <div class="w-8 h-8 bg-gradient-luxury-primary rounded-full flex items-center justify-center text-brand-ivory font-heading text-sm flex-shrink-0 mt-1">
+              🎓
+            </div>
+            <h3 class="font-accent text-luxury-primary uppercase tracking-wider text-sm leading-relaxed">
+              {f.question}
+            </h3>
+          </div>
+          <div class="ml-4 transform transition-transform duration-300 group-open:rotate-180">
+            <svg class="w-5 h-5 text-luxury-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+        </summary>
+        <div class="px-6 pb-6">
+          <div class="ml-12 pt-4 border-t border-luxury">
+            <p class="font-body text-luxury-dark leading-relaxed">
+              {f.reponse}
+            </p>
+            <div class="mt-3 pt-3 border-t border-luxury">
+              <div class="text-xs font-accent text-luxury-light uppercase tracking-wider">
+                Formation
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
     ))}
-  </ul>
+  </div>
 ) : (!loading && faqs.length === 0) ? (
-  <Alert variant="info">Aucune question fréquente à afficher pour le moment.</Alert>
+  <div class="card-luxury p-8 text-center">
+    <div class="w-16 h-16 bg-gradient-luxury-primary rounded-full flex items-center justify-center mx-auto mb-4">
+      <span class="text-2xl">🎓</span>
+    </div>
+    <h3 class="font-heading text-luxury-primary text-lg mb-2">Aucune question fréquente</h3>
+    <p class="font-body text-luxury-light text-sm">
+      Les questions les plus courantes sur les formations apparaîtront bientôt ici.
+    </p>
+  </div>
 ) : null}
