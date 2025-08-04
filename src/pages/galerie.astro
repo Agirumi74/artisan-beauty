@@ -1,6 +1,6 @@
 ---
-
 import Layout from '../layouts/Layout.astro';
+import db from '../lib/db';
 
 // Récupération des services et images côté serveur Astro
 type Service = {
@@ -11,18 +11,20 @@ type GalerieImage = {
   id: number;
   imageUrl: string;
   title: string;
+  description?: string;
   serviceId?: number;
+  servicesGlobal?: number;
 };
+
 let services: Service[] = [];
 let galerie: GalerieImage[] = [];
+
 try {
-  const res = await fetch('/api/service-db');
-  if (res.ok) services = await res.json();
-} catch {}
-try {
-  const res = await fetch('/api/galerie-db');
-  if (res.ok) galerie = await res.json();
-} catch {}
+  services = db.prepare('SELECT id, nom FROM services ORDER BY nom ASC').all();
+  galerie = db.prepare('SELECT * FROM galerie ORDER BY createdAt DESC').all();
+} catch (error) {
+  console.error('Database error:', error);
+}
 ---
 
 
@@ -71,9 +73,9 @@ try {
       </div>
     </dialog>
 
-    <script type="module">
-      const galerie = JSON.parse('{JSON.stringify(galerie)}');
-      let filtered = galerie;
+    <script type="module" define:vars={{ galerie }}>
+      const galerieData = galerie;
+      let filtered = galerieData;
       let currentIdx = 0;
       const select = document.getElementById('service-select');
       const grid = document.getElementById('gallery-grid');
@@ -126,7 +128,7 @@ try {
       });
       select.addEventListener('change', (e) => {
         const val = select.value;
-        filtered = val ? galerie.filter(img => String(img.serviceId) === val || img.servicesGlobal == 1) : galerie;
+        filtered = val ? galerieData.filter(img => String(img.serviceId) === val || img.servicesGlobal == 1) : galerieData;
         renderGrid();
       });
       // Initial render
