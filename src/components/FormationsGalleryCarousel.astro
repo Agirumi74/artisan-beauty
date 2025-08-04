@@ -1,27 +1,35 @@
 ---
 import Alert from './starwind/alert/Alert.astro';
+import db from '@lib/db';
+
 let images = [];
-let loading = true;
 try {
-  // On récupère toutes les images liées à une formation (formationsGlobal=1 ou formationId non nul)
-  const res = await fetch('/api/galerie-db?formationsGlobal=1');
-  if (res.ok) {
-    images = await res.json();
-  }
-} catch {}
-loading = false;
+  // Récupérer directement depuis la DB les images des formations
+  images = db.prepare('SELECT * FROM galerie WHERE formationsGlobal = 1 ORDER BY id ASC').all();
+} catch (e) {
+  console.error('Error fetching formations gallery:', e);
+  images = [];
+}
 ---
-{!loading && images.length > 0 ? (
-  <div class="w-full overflow-x-auto py-2">
-    <div class="flex gap-4 min-w-full">
+{images.length > 0 ? (
+  <div class="w-full overflow-x-auto py-4">
+    <div class="flex gap-6 min-w-full">
       {images.map((img: { imageUrl: string; title: string }) => (
-        <div class="bg-white rounded-xl shadow p-2 min-w-[180px] max-w-xs flex-shrink-0 flex flex-col items-center">
-          <img src={img.imageUrl} alt={img.title} class="w-40 h-32 object-cover rounded mb-2" loading="lazy" />
-          <div class="text-xs text-gray-700 text-center">{img.title}</div>
+        <div class="luxury-glass-effect rounded-2xl overflow-hidden min-w-[280px] max-w-sm flex-shrink-0 border border-luxury-primary/20 hover:border-luxury-primary/40 transition-all duration-500 hover:scale-105 group">
+          <div class="relative">
+            <img src={img.imageUrl} alt={img.title} class="w-full h-48 object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-luxury-primary/0 group-hover:bg-luxury-primary/10 transition-all duration-500"></div>
+          </div>
+          <div class="p-4">
+            <h4 class="text-sm font-medium text-luxury-primary text-center">{img.title}</h4>
+          </div>
         </div>
       ))}
     </div>
   </div>
-) : (!loading && images.length === 0) ? (
-  <Alert variant="info">Aucune image à afficher pour le moment.</Alert>
-) : null}
+) : (
+  <div class="luxury-glass-effect p-12 rounded-2xl text-center">
+    <div class="text-luxury-primary/60 mb-4">✦</div>
+    <p class="text-neutral-500">Portfolio de formations à venir prochainement.</p>
+  </div>
+)}

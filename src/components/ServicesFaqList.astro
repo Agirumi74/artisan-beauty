@@ -4,14 +4,17 @@ export interface Props { faqs: any[] }
 const { faqs = [] } = Astro.props;
 ---
 {faqs.length > 0 ? (
-  <ul class="list-disc ml-6 text-left">
+  <div class="space-y-8">
     {faqs.map((f) => (
-      <li class="mb-2">
-        <span class="font-semibold text-pink-700">{f.question}</span><br />
-        <span class="text-gray-700">{f.reponse}</span>
-      </li>
+      <div class="luxury-glass-effect p-8 rounded-2xl border border-luxury-primary/20 hover:border-luxury-primary/40 transition-all duration-500">
+        <h4 class="text-lg font-medium text-luxury-primary mb-4 font-heading">{f.question}</h4>
+        <p class="text-neutral-600 leading-relaxed">{f.reponse}</p>
+      </div>
     ))}
-  </ul>
+  </div>
 ) : (
-  <Alert variant="info">Aucune question fréquente à afficher pour le moment.</Alert>
+  <div class="luxury-glass-effect p-12 rounded-2xl text-center">
+    <div class="text-luxury-primary/60 mb-4">✦</div>
+    <p class="text-neutral-500">Plus de questions fréquentes à venir prochainement.</p>
+  </div>
 )}

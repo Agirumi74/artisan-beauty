@@ -592,3 +592,54 @@
   0% { left: -100%; }
   50%, 100% { left: 100%; }
 }
+
+/* ===========================
+   LUXURY GLASS MORPHISM EFFECTS
+   =========================== */
+
+.luxury-glass-effect {
+  background: rgba(250, 248, 245, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 169, 110, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(201, 169, 110, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.luxury-glass-effect:hover {
+  background: rgba(250, 248, 245, 0.9);
+  border-color: rgba(201, 169, 110, 0.2);
+  box-shadow: 
+    0 12px 48px rgba(201, 169, 110, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Luxury Primary Colors for Tailwind */
+.text-luxury-primary {
+  color: var(--brand-gold-primary);
+}
+
+.text-luxury-secondary {
+  color: var(--brand-rose-primary);
+}
+
+.bg-luxury-primary\/10 {
+  background-color: rgba(201, 169, 110, 0.1);
+}
+
+.bg-luxury-secondary\/10 {
+  background-color: rgba(212, 165, 116, 0.1);
+}
+
+.bg-luxury-accent\/20 {
+  background-color: rgba(244, 232, 208, 0.2);
+}
+
+.border-luxury-primary\/20 {
+  border-color: rgba(201, 169, 110, 0.2);
+}
+
+.border-luxury-primary\/40 {
+  border-color: rgba(201, 169, 110, 0.4);
+}
