@@ -373,3 +373,222 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ===========================
+   ENHANCED VISUAL EFFECTS & DEPTH
+   =========================== */
+
+/* Enhanced Glass Morphism Effects */
+.glass-luxury {
+  background: rgba(250, 248, 245, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  box-shadow: var(--shadow-luxury-soft);
+}
+
+/* Advanced Gradient Overlays */
+.overlay-luxury-warm {
+  background: linear-gradient(135deg, 
+    rgba(201, 169, 110, 0.1) 0%, 
+    rgba(212, 165, 116, 0.15) 50%, 
+    rgba(247, 240, 230, 0.1) 100%);
+}
+
+.overlay-luxury-depth {
+  background: linear-gradient(135deg, 
+    transparent 0%, 
+    rgba(201, 169, 110, 0.05) 25%, 
+    rgba(212, 165, 116, 0.1) 50%, 
+    rgba(201, 169, 110, 0.05) 75%, 
+    transparent 100%);
+}
+
+/* Enhanced Floating Elements */
+@keyframes luxury-float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.7; 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(2deg); 
+    opacity: 1; 
+  }
+}
+
+.float-luxury {
+  animation: luxury-float 6s ease-in-out infinite;
+}
+
+.float-luxury:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.float-luxury:nth-child(3) {
+  animation-delay: 4s;
+}
+
+/* Advanced Hover Effects */
+.hover-lift-luxury {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift-luxury:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-luxury-strong);
+}
+
+/* Enhanced Border Effects */
+.border-luxury-gradient {
+  position: relative;
+  background: var(--brand-ivory);
+  border-radius: var(--radius-2xl);
+}
+
+.border-luxury-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: var(--gradient-luxury-primary);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+}
+
+/* Luxury Text Effects */
+.text-shimmer-luxury {
+  background: linear-gradient(90deg, 
+    var(--brand-gold-dark) 0%, 
+    var(--brand-gold-primary) 25%, 
+    var(--brand-gold-light) 50%, 
+    var(--brand-gold-primary) 75%, 
+    var(--brand-gold-dark) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
+}
+
+/* Enhanced Decorative Elements */
+.sparkle-luxury {
+  position: relative;
+}
+
+.sparkle-luxury::before,
+.sparkle-luxury::after {
+  content: '✦';
+  position: absolute;
+  color: var(--brand-gold-primary);
+  font-size: 1rem;
+  opacity: 0;
+  animation: sparkle 4s ease-in-out infinite;
+}
+
+.sparkle-luxury::before {
+  top: 10%;
+  right: 15%;
+  animation-delay: 0s;
+}
+
+.sparkle-luxury::after {
+  bottom: 20%;
+  left: 10%;
+  animation-delay: 2s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+/* Advanced Section Transitions */
+.section-transition-luxury {
+  position: relative;
+}
+
+.section-transition-luxury::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-luxury-primary);
+}
+
+.section-transition-luxury::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-luxury-primary);
+  opacity: 0.5;
+}
+
+/* Enhanced Background Patterns */
+.pattern-luxury-dots {
+  background-image: radial-gradient(circle, rgba(201, 169, 110, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.pattern-luxury-lines {
+  background-image: 
+    linear-gradient(45deg, rgba(201, 169, 110, 0.05) 25%, transparent 25%), 
+    linear-gradient(-45deg, rgba(201, 169, 110, 0.05) 25%, transparent 25%);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+
+/* Luxury Progress Indicators */
+.progress-luxury {
+  height: 4px;
+  background: var(--brand-champagne);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-luxury-bar {
+  height: 100%;
+  background: var(--gradient-luxury-primary);
+  border-radius: var(--radius-full);
+  transform-origin: left;
+  animation: progress-fill 2s ease-out forwards;
+}
+
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Enhanced CTA Effects */
+.cta-luxury-pulse {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-luxury-pulse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: cta-shine 3s ease-in-out infinite;
+}
+
+@keyframes cta-shine {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
