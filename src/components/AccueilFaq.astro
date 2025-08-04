@@ -4,19 +4,113 @@ export interface Props { faqs: any[] }
 const { faqs = [] } = Astro.props;
 ---
 {faqs.length > 0 ? (
-  <div class="mt-12">
-    <h2 class="text-2xl font-bold mb-4 text-pink-700">Questions fréquentes</h2>
-    <ul class="list-disc ml-6 text-left">
-      {faqs.map((f) => (
-        <li class="mb-2">
-          <span class="font-semibold text-pink-700">{f.question}</span><br />
-          <span class="text-gray-700">{f.reponse}</span>
-        </li>
+  <div class="mt-12 section-luxury">
+    <h2 class="text-headline font-heading text-center mb-8 shimmer-text">Questions fréquentes</h2>
+    <div class="luxury-divider"></div>
+    
+    <div class="max-w-4xl mx-auto mt-8 space-y-4">
+      {faqs.map((f, index) => (
+        <div class={`glass-morphism card-luxury hover-lift animate-luxury-fade-in animate-stagger-${(index % 6) + 1}`}>
+          <details class="group">
+            <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+              <h3 class="font-semibold text-luxury-dark text-lg pr-4">
+                {f.question}
+              </h3>
+              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-luxury-accent text-luxury-primary transition-transform duration-300 group-open:rotate-180">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </summary>
+            
+            <div class="px-6 pb-6 pt-0">
+              <div class="border-t border-luxury opacity-20 pt-4">
+                <p class="text-luxury-light leading-relaxed">
+                  {f.reponse}
+                </p>
+              </div>
+            </div>
+          </details>
+        </div>
       ))}
-    </ul>
+    </div>
   </div>
 ) : (
-  <div class="mt-12">
+  <div class="mt-12 section-luxury">
     <Alert variant="info">Aucune question fréquente globale à afficher pour le moment.</Alert>
   </div>
 )}
+
+<script>
+// Add smooth accordion animation
+document.addEventListener('DOMContentLoaded', function() {
+  const details = document.querySelectorAll('details');
+  
+  details.forEach((detail) => {
+    const summary = detail.querySelector('summary');
+    const content = detail.querySelector('div');
+    
+    if (summary && content) {
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        if (detail.hasAttribute('open')) {
+          // Closing
+          const animation = content.animate([
+            { opacity: 1, maxHeight: content.scrollHeight + 'px' },
+            { opacity: 0, maxHeight: '0px' }
+          ], {
+            duration: 300,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+          });
+          
+          animation.onfinish = () => {
+            detail.removeAttribute('open');
+          };
+        } else {
+          // Opening
+          detail.setAttribute('open', '');
+          const animation = content.animate([
+            { opacity: 0, maxHeight: '0px' },
+            { opacity: 1, maxHeight: content.scrollHeight + 'px' }
+          ], {
+            duration: 300,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+          });
+        }
+      });
+    }
+  });
+});
+</script>
+
+<style>
+/* Enhanced accordion styling */
+details[open] summary {
+  border-bottom: 1px solid var(--brand-champagne);
+  margin-bottom: 0;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::marker {
+  display: none;
+}
+
+details > div {
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+details:not([open]) > div {
+  max-height: 0;
+  opacity: 0;
+}
+
+details[open] > div {
+  max-height: 1000px;
+  opacity: 1;
+}
+</style>
