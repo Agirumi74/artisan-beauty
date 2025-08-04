@@ -27,45 +27,189 @@ try {
 }
 ---
 <Layout>
-  <section class="container mx-auto py-12">
-    {formation && formation.titre ? (
-      <>
-        <h1 class="text-3xl font-bold mb-4 flex items-center gap-2">
-          {formation.icon && <span class={`inline-block icon-${formation.icon} text-2xl`} aria-hidden="true"></span>}
-          {formation.titre}
-          {formation.isFeatured ? <span class="ml-2 px-2 py-1 bg-yellow-200 text-yellow-800 rounded text-xs font-bold">En vedette</span> : null}
-          {(!formation.isActive) ? <span class="ml-2 px-2 py-1 bg-gray-300 text-gray-700 rounded text-xs font-bold">Inactif</span> : null}
-        </h1>
-        <div class="flex gap-2 mb-2 flex-wrap">
-          {formation.categorie && <span class="inline-block bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-xs font-semibold">{formation.categorie}</span>}
-          {formation.duree && <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{formation.duree}</span>}
-          {formation.durationMinutes && <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{formation.durationMinutes} min</span>}
-          {formation.tags && formation.tags.length > 0 && formation.tags.map((tag) => <span class="inline-block bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">{tag}</span>)}
+  <!-- Hero Section -->
+  <section class="section-luxury-hero">
+    <div class="container mx-auto px-4">
+      {formation && formation.titre ? (
+        <div class="card-luxury hover-lift p-8 max-w-6xl mx-auto">
+          <div class="flex flex-col lg:flex-row gap-8 items-start">
+            {formation.image && (
+              <div class="w-full lg:w-2/5 image-overlay-luxury rounded-2xl overflow-hidden">
+                <img 
+                  src={formation.image} 
+                  alt={formation.imageAlt || formation.titre} 
+                  class="w-full h-80 object-cover transition-transform duration-500"
+                  loading="lazy" 
+                />
+              </div>
+            )}
+            <div class="flex-1 space-y-6">
+              <div class="space-y-4">
+                <h1 class="text-hero font-heading shimmer-text flex items-center gap-3">
+                  {formation.icon && <span class={`inline-block icon-${formation.icon} text-4xl text-luxury-primary`} aria-hidden="true"></span>}
+                  {formation.titre}
+                </h1>
+                
+                {/* Status badges */}
+                <div class="flex gap-3 flex-wrap">
+                  {formation.isFeatured && (
+                    <span class="glass-morphism px-4 py-2 rounded-full text-sm font-accent text-luxury-primary border border-luxury">
+                      ⭐ Formation vedette
+                    </span>
+                  )}
+                  {(!formation.isActive) && (
+                    <span class="bg-luxury-neutral px-4 py-2 rounded-full text-sm font-accent text-luxury-light border border-luxury">
+                      Inactif
+                    </span>
+                  )}
+                  {formation.certification && (
+                    <span class="bg-gradient-luxury-primary text-brand-ivory px-4 py-2 rounded-full text-sm font-accent uppercase tracking-wider">
+                      🎓 Certifiante
+                    </span>
+                  )}
+                </div>
+                
+                {/* Category and duration tags */}
+                <div class="flex gap-3 mb-6 flex-wrap">
+                  {formation.categorie && (
+                    <span class="bg-luxury-primary text-brand-ivory px-4 py-2 rounded-full text-sm font-accent uppercase tracking-wider">
+                      {formation.categorie}
+                    </span>
+                  )}
+                  {formation.duree && (
+                    <span class="bg-luxury-accent text-luxury-dark px-4 py-2 rounded-full text-sm font-accent">
+                      ⏱️ {formation.duree}
+                    </span>
+                  )}
+                  {formation.durationMinutes && (
+                    <span class="bg-luxury-accent text-luxury-dark px-4 py-2 rounded-full text-sm font-accent">
+                      {formation.durationMinutes} min
+                    </span>
+                  )}
+                  {formation.niveau && (
+                    <span class="glass-morphism-strong px-4 py-2 rounded-full text-sm font-accent text-luxury-primary">
+                      📈 {formation.niveau}
+                    </span>
+                  )}
+                </div>
+
+                {/* Tags */}
+                {formation.tags && formation.tags.length > 0 && (
+                  <div class="flex gap-2 flex-wrap">
+                    {formation.tags.map(tag => (
+                      <span class="glass-morphism-strong px-3 py-1 rounded-full text-xs font-body text-luxury-primary">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                <p class="text-subtitle font-body leading-relaxed">{formation.description}</p>
+                
+                {formation.content && (
+                  <div class="bg-luxury-neutral p-6 rounded-xl border border-luxury">
+                    <h3 class="font-heading text-lg text-luxury-primary mb-2">Programme de formation</h3>
+                    <p class="font-body text-luxury-dark">{formation.content}</p>
+                  </div>
+                )}
+                
+                {formation.prerequis && (
+                  <div class="card-luxury-featured p-6">
+                    <h3 class="font-heading text-lg text-luxury-primary mb-3">Prérequis</h3>
+                    <p class="font-body text-luxury-dark">{formation.prerequis}</p>
+                  </div>
+                )}
+                
+                {formation.objectifs && (
+                  <div class="bg-luxury-accent p-6 rounded-xl border border-luxury">
+                    <h3 class="font-heading text-lg text-luxury-primary mb-3">Objectifs pédagogiques</h3>
+                    <p class="font-body text-luxury-dark">{formation.objectifs}</p>
+                  </div>
+                )}
+                
+                {formation.notes && (
+                  <div class="bg-luxury-champagne p-4 rounded-lg border border-luxury">
+                    <h4 class="font-accent text-sm text-luxury-primary mb-1 uppercase tracking-wider">Notes importantes</h4>
+                    <p class="font-body text-sm text-luxury-light">{formation.notes}</p>
+                  </div>
+                )}
+                
+                {formation.steps && formation.steps.length > 0 && (
+                  <div class="card-luxury p-6">
+                    <h3 class="font-heading text-lg text-luxury-primary mb-4">Déroulement de la formation</h3>
+                    <ol class="space-y-3">
+                      {formation.steps.map((step, index) => (
+                        <li class="flex items-start gap-3">
+                          <span class="bg-gradient-luxury-primary text-brand-ivory w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                            {index + 1}
+                          </span>
+                          <span class="font-body text-luxury-dark">{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+
+                {formation.certification && (
+                  <div class="gradient-overlay-luxury card-luxury p-6">
+                    <div class="flex items-center gap-3 mb-2">
+                      <span class="text-2xl">🏆</span>
+                      <h3 class="font-heading text-lg text-luxury-primary">Certification</h3>
+                    </div>
+                    <p class="font-body text-luxury-dark">{formation.certification}</p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Pricing and CTA */}
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6 border-t border-luxury">
+                <div class="font-heading text-4xl shimmer-text">{formation.prix} €</div>
+                <a 
+                  href={`/reservations?formation=${formation.slug}`} 
+                  class="btn-luxury-primary btn-shine hover-lift-gentle animate-pulse-glow"
+                >
+                  S'inscrire à cette formation
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          {/* Gallery Section */}
+          {images && images.length > 0 && (
+            <div class="mt-12 pt-8 border-t border-luxury">
+              <h2 class="text-headline font-heading text-luxury-primary mb-6 text-center">Galerie</h2>
+              <FormationGallery images={images} />
+            </div>
+          )}
         </div>
-        <p class="mb-2 text-lg">{formation.description}</p>
-        {formation.content && <div class="mb-2 text-base text-gray-700"><b>Contenu :</b> {formation.content}</div>}
-        {formation.notes && <div class="mb-2 text-sm text-gray-500"><b>Notes :</b> {formation.notes}</div>}
-        {formation.steps && formation.steps.length > 0 && (
-          <ol class="list-decimal list-inside mb-2 text-sm text-gray-700">
-            {formation.steps.map((step) => <li>{step}</li>)}
-          </ol>
-        )}
-        {formation.certification && <div class="mb-2 text-sm text-green-700"><b>Certification :</b> {formation.certification}</div>}
-        <div class="font-bold text-pink-700 text-2xl mb-8">{formation.prix} €</div>
-        <a href={`/reservations?formation=${formation.slug}`} class="bg-pink-700 text-white px-6 py-3 rounded hover:bg-pink-800">S'inscrire à cette formation</a>
-        <div class="mt-6">
-          <FormationGallery images={images} />
+      ) : (
+        <div class="card-luxury p-8 text-center max-w-md mx-auto">
+          <div class="text-warning-luxury text-lg font-accent uppercase tracking-wider mb-2">Formation introuvable</div>
+          <p class="font-body text-luxury-light">La formation demandée n'existe pas ou a été supprimée.</p>
         </div>
-        <div class="mt-12">
-          <h2 class="text-xl font-bold mb-4 text-pink-700">Avis sur cette formation</h2>
+      )}
+    </div>
+  </section>
+
+  {formation && formation.titre && (
+    <>
+      {/* Reviews Section */}
+      <section class="section-luxury">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-12">
+            <h2 class="text-headline font-heading text-luxury-primary mb-4">Avis sur cette formation</h2>
+            <div class="luxury-divider"></div>
+          </div>
           <FormationAvis avis={avis} />
         </div>
-        <div class="mt-12">
+      </section>
+
+      {/* FAQ Section */}
+      <section class="section-luxury-accent">
+        <div class="container mx-auto px-4">
           <FormationFaq faqs={faqs} />
         </div>
-      </>
-    ) : (
-      <div class="bg-yellow-100 text-yellow-800 p-4 rounded">Formation introuvable.</div>
-    )}
-  </section>
+      </section>
+    </>
+  )}
 </Layout>
