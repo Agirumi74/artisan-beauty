@@ -109,40 +109,94 @@ try {
       <div class="flex-1 flex justify-center">
         <img src="/assets/mariee-annecy.jpg" alt="Maquillage professionnel Annecy à Annecy" class="rounded-3xl shadow-2xl w-96 h-72 object-cover border-4 border-pink-200" loading="lazy" />
       </div>
-    </div>
-  </section>
+  {/* Services Section with Luxury Styling */}
+  <section class="section-luxury py-16" id="services">
+    <div class="container mx-auto px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-16 animate-luxury-slide-in">
+        <div class="font-accent text-luxury-primary uppercase tracking-widest text-sm mb-4">
+          Excellence • Expertise
+        </div>
+        <h2 class="text-display font-heading text-luxury-primary mb-6">
+          Nos Services
+          <span class="block text-luxury-secondary">d'Exception</span>
+        </h2>
+        <p class="text-subtitle max-w-3xl mx-auto">
+          Découvrez notre gamme complète de services professionnels, chacun pensé pour sublimer votre beauté avec expertise et raffinement.
+        </p>
+      </div>
 
-  {/* Liste des services */}
-  <section class="container mx-auto py-8">
-    <h2 class="text-3xl font-bold mb-8 text-pink-700 text-center">Nos Services</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      {services.map((service: any) => (
-        <Card class="flex flex-col h-full">
-          {service.image ? (
-            <img src={service.image} alt={service.nom} class="w-full h-48 object-cover rounded-t-2xl" loading="lazy" />
-          ) : (
-            <div class="h-48 flex items-center justify-center bg-gray-100 rounded-t-2xl text-gray-400">Aucune image</div>
-          )}
-          <CardContent class="flex-1 flex flex-col justify-between">
-            <div>
-              <CardTitle class="mb-2">{service.nom}</CardTitle>
-              <div class="flex gap-2 mb-2">
-                {service.categorie && <Badge variant="primary">{service.categorie}</Badge>}
-                {service.duree && <Badge variant="secondary">{service.duree}</Badge>}
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service: any, index: number) => (
+          <div class={`card-luxury-featured group hover:scale-105 transition-all duration-500 animate-luxury-scale-in`} style={`animation-delay: ${index * 0.1}s;`}>
+            {/* Service Image */}
+            <div class="relative overflow-hidden rounded-t-xl">
+              {service.image ? (
+                <img 
+                  src={service.image} 
+                  alt={service.nom} 
+                  class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500" 
+                  loading="lazy" 
+                />
+              ) : (
+                <div class="h-56 flex items-center justify-center bg-luxury-champagne text-luxury-taupe">
+                  <div class="text-center">
+                    <div class="text-4xl mb-2">💄</div>
+                    <div class="text-sm">Service {service.nom}</div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Floating Price Badge */}
+              <div class="absolute top-4 right-4 bg-luxury-primary text-white px-3 py-1 rounded-full text-sm font-medium shadow-luxury-soft">
+                {service.prix} €
               </div>
-              <p class="mb-3 text-gray-700 line-clamp-3">{service.description}</p>
             </div>
-            <div class="flex items-center justify-between mt-4">
-              <span class="font-bold text-pink-700 text-xl">{service.prix} €</span>
-              <Button href={`/services/${service.slug}`} variant="primary">Voir le service</Button>
+
+            <!-- Service Content -->
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="flex-1">
+                <h3 class="text-title font-heading text-luxury-primary mb-3 group-hover:text-luxury-secondary transition-colors">
+                  {service.nom}
+                </h3>
+                
+                <div class="flex gap-2 mb-4">
+                  {service.categorie && (
+                    <span class="px-3 py-1 bg-luxury-gold-accent text-luxury-charcoal text-xs uppercase tracking-wider rounded-full">
+                      {service.categorie}
+                    </span>
+                  )}
+                  {service.duree && (
+                    <span class="px-3 py-1 bg-luxury-rose-accent text-luxury-charcoal text-xs uppercase tracking-wider rounded-full">
+                      {service.duree}
+                    </span>
+                  )}
+                </div>
+                
+                <p class="text-luxury-taupe mb-6 line-clamp-3 leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+              
+              <!-- Service Action -->
+              <div class="mt-auto">
+                <a 
+                  href={`/services/${service.slug}`} 
+                  class="btn-luxury-secondary w-full group-hover:bg-luxury-primary group-hover:text-white transition-all duration-300"
+                >
+                  Découvrir ce service
+                </a>
+              </div>
             </div>
-          </CardContent>
-          {/* Section avis résumé */}
-          <div class="px-8 pb-4">
-            <ServiceAvisSummary serviceId={service.id} />
+
+            <!-- Service Reviews Summary -->
+            <div class="px-6 pb-6">
+              <ServiceAvisSummary serviceId={service.id} />
+            </div>
           </div>
-        </Card>
-      ))}
+        ))}
+      </div>
     </div>
   </section>
 
