@@ -1,0 +1,227 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/_server-islands/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/accueil/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/avis/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/calendrier/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/contact/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/factures/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/formations/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/galerie/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/gallery/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/planning/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/reservations/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/services/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/utilisateurs/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/admin-block/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/auth/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/avis/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/avis-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/contact/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/facture/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/facture-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/faq-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/formation/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/formation-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/galerie/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/galerie-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/gallery-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/logout/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/planning/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/reservation/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/reservation-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/service/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/service-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/upload-galerie-image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/upload-service-image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/utilisateur/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/utilisateur-db/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/avis/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/contact/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/equipe/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/factures/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/formations/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/formations/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/galerie/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/login/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/logout/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/reservations/confirmation/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/reservations/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/services/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/services/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/utilisateurs/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		}
+	]
+}
