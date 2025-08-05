@@ -119,3 +119,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Mobile-first responsive utilities and fixes */
+@layer utilities {
+  /* Prevent horizontal overflow */
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
+  
+  /* Image responsive constraints */
+  .img-responsive {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Mobile container constraints */
+  .mobile-container {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Mobile safe areas */
+  .mobile-safe-padding {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
