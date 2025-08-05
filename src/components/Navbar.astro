@@ -3,7 +3,7 @@
 import LuxuryLogo from './LuxuryLogo.astro';
 ---
 
-<nav class="w-full bg-luxury-neutral/95 backdrop-blur-md shadow-luxury border-b border-luxury sticky top-0 z-50 transition-all duration-300">
+<nav class="nav-luxury w-full shadow-luxury border-b border-luxury sticky top-0 z-50">
   <div class="container mx-auto px-6 lg:px-8">
     <div class="flex justify-between items-center py-4">
       <!-- Logo -->
@@ -14,39 +14,33 @@ import LuxuryLogo from './LuxuryLogo.astro';
       <!-- Desktop Navigation -->
       <ul class="hidden md:flex items-center gap-8">
         <li>
-          <a href="/" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+          <a href="/" class="nav-link-luxury">
             Accueil
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="/services" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+          <a href="/services" class="nav-link-luxury">
             Services
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="/formations" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+          <a href="/formations" class="nav-link-luxury">
             Formations
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="/galerie" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+          <a href="/galerie" class="nav-link-luxury">
             Galerie
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="/equipe" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+          <a href="/equipe" class="nav-link-luxury">
             Équipe
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
         <li>
-          <a href="/contact" class="font-body font-medium text-luxury-dark hover:text-luxury-primary transition-colors duration-300 relative group">
+          <a href="/contact" class="nav-link-luxury">
             Contact
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-luxury-primary transition-all duration-300 group-hover:w-full"></span>
           </a>
         </li>
       </ul>
@@ -70,10 +64,10 @@ import LuxuryLogo from './LuxuryLogo.astro';
     </div>
     
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu-overlay" class="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden transition-opacity duration-300 opacity-0"></div>
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay md:hidden fixed inset-0 z-40 hidden transition-opacity duration-300 opacity-0"></div>
     
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-gradient-to-br from-luxury-cream to-luxury-champagne backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-300 ease-out shadow-luxury-strong border-l border-luxury-gold-light/20">
+    <div id="mobile-menu" class="mobile-menu-panel md:hidden fixed top-0 right-0 h-full w-80 max-w-[90vw] z-50 transform translate-x-full transition-transform duration-300 ease-out shadow-luxury-strong">
       <!-- Menu Header -->
       <div class="flex items-center justify-between p-6 border-b border-luxury-gold-light/20">
         <div class="flex items-center gap-3">
