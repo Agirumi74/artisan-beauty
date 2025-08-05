@@ -10,19 +10,70 @@ try {
   }
 } catch {}
 loading = false;
+
+// Generate user avatars with initials
+function generateUserAvatar(name: string) {
+  const initials = name?.split(' ').map(n => n.charAt(0)).join('').toUpperCase() || 'AB';
+  const colors = ['#C9A96E', '#D4A574', '#B08D57', '#B8956A', '#CD7F32'];
+  const bgColor = colors[Math.abs(name?.charCodeAt(0) || 0) % colors.length];
+  return { initials, bgColor };
+}
+
+// Generate star rating component
+function generateStarRating(rating: number) {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(i <= rating ? '★' : '☆');
+  }
+  return stars.join('');
+}
 ---
 {!loading && avis.length > 0 ? (
-  <div class="w-full overflow-x-auto py-2">
-    <div class="flex gap-4 min-w-full">
-      {avis.map((a: { utilisateur?: string; nom?: string; commentaire: string; note: number }) => (
-        <div class="bg-white rounded-xl shadow p-6 min-w-[320px] max-w-xs flex-shrink-0">
-          <div class="font-semibold text-pink-700 mb-1">{a.utilisateur || a.nom}</div>
-          <div class="text-sm text-gray-600 mb-2">{a.commentaire}</div>
-          <div class="text-xs text-yellow-600">{a.note} / 5</div>
-        </div>
-      ))}
+  <div class="w-full overflow-x-auto py-4">
+    <div class="flex gap-6 min-w-full pb-4">
+      {avis.map((a: { utilisateur?: string; nom?: string; commentaire: string; note: number }, index: number) => {
+        const userName = a.utilisateur || a.nom || 'Client anonyme';
+        const avatar = generateUserAvatar(userName);
+        const stars = generateStarRating(a.note || 5);
+        return (
+          <div class={`card-luxury-featured hover-lift glass-morphism-strong p-6 min-w-[320px] max-w-xs flex-shrink-0 animate-luxury-scale-in animate-stagger-${(index % 3) + 1}`}>
+            <!-- User Avatar & Info -->
+            <div class="flex items-center mb-4">
+              <div 
+                class="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold mr-4 shadow-luxury"
+                style={`background: ${avatar.bgColor}`}
+              >
+                {avatar.initials}
+              </div>
+              <div>
+                <div class="font-semibold text-luxury-dark text-base">{userName}</div>
+                <div class="text-luxury-light text-sm">Formation terminée</div>
+              </div>
+            </div>
+            
+            <!-- Star Rating -->
+            <div class="flex items-center mb-3">
+              <span class="text-yellow-500 text-lg mr-2">{stars}</span>
+              <span class="text-luxury-light text-sm">({a.note}/5)</span>
+            </div>
+            
+            <!-- Comment -->
+            <div class="text-luxury-dark text-sm leading-relaxed mb-4">
+              "{a.commentaire}"
+            </div>
+            
+            <!-- Formation Badge -->
+            <div class="inline-flex items-center px-3 py-1 rounded-full bg-luxury-accent text-luxury-primary text-xs font-medium">
+              <span class="mr-1">✨</span>
+              Formation Artisan Beauty
+            </div>
+          </div>
+        );
+      })}
     </div>
   </div>
 ) : (!loading && avis.length === 0) ? (
-  <Alert variant="info">Aucun avis à afficher pour le moment.</Alert>
+  <div class="text-center py-8">
+    <Alert variant="info">Aucun avis formation à afficher pour le moment.</Alert>
+  </div>
 ) : null}

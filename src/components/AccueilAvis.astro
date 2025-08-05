@@ -2,22 +2,73 @@
 import Alert from './starwind/alert/Alert.astro';
 export interface Props { avis: any[] }
 const { avis = [] } = Astro.props;
+
+// Generate user avatars with initials
+function generateUserAvatar(name: string) {
+  const initials = name?.split(' ').map(n => n.charAt(0)).join('').toUpperCase() || 'AB';
+  const colors = ['#C9A96E', '#D4A574', '#B08D57', '#B8956A', '#CD7F32'];
+  const bgColor = colors[Math.abs(name?.charCodeAt(0) || 0) % colors.length];
+  return { initials, bgColor };
+}
+
+// Generate star rating component
+function generateStarRating(rating: number) {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(i <= rating ? '★' : '☆');
+  }
+  return stars.join('');
+}
 ---
 {avis.length > 0 ? (
-  <div class="mt-12">
-    <h2 class="text-2xl font-bold mb-4 text-pink-700">Avis clients</h2>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {avis.map((a) => (
-        <li class="bg-gray-50 p-4 rounded shadow text-left">
-          <div class="font-semibold">{a.utilisateur}</div>
-          <div class="text-sm text-gray-600 mb-1">{a.commentaire}</div>
-          <div class="text-xs text-yellow-600">{a.note} / 5</div>
-        </li>
-      ))}
+  <div class="mt-12 section-luxury">
+    <h2 class="text-headline font-heading text-center mb-8 shimmer-text">Avis de nos clients</h2>
+    <div class="luxury-divider"></div>
+    
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {avis.map((a, index) => {
+        const avatar = generateUserAvatar(a.utilisateur || 'Anonyme');
+        const stars = generateStarRating(a.note || 5);
+        return (
+          <li class={`card-luxury hover-lift glass-morphism p-6 text-left animate-luxury-fade-in animate-stagger-${(index % 6) + 1}`}>
+            <!-- User Avatar & Info -->
+            <div class="flex items-center mb-4">
+              <div 
+                class="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold mr-4 shadow-luxury"
+                style={`background: ${avatar.bgColor}`}
+              >
+                {avatar.initials}
+              </div>
+              <div>
+                <div class="font-semibold text-luxury-dark text-base">{a.utilisateur || 'Client anonyme'}</div>
+                <div class="text-luxury-light text-sm">Client vérifié</div>
+              </div>
+            </div>
+            
+            <!-- Star Rating -->
+            <div class="flex items-center mb-3">
+              <span class="text-yellow-500 text-lg mr-2">{stars}</span>
+              <span class="text-luxury-light text-sm">({a.note}/5)</span>
+            </div>
+            
+            <!-- Comment -->
+            <div class="text-luxury-dark text-sm leading-relaxed">
+              "{a.commentaire}"
+            </div>
+            
+            <!-- Decorative element -->
+            <div class="mt-4 pt-4 border-t border-luxury opacity-30">
+              <div class="text-xs text-luxury-light italic">
+                Expérience Artisan Beauty
+              </div>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   </div>
 ) : (
-  <div class="mt-12">
+  <div class="mt-12 section-luxury">
     <Alert variant="info">Aucun avis global à afficher pour le moment.</Alert>
   </div>
 )}

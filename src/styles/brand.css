@@ -781,6 +781,21 @@
 .border-luxury { border-color: var(--brand-gold-light); }
 .shadow-luxury { box-shadow: var(--shadow-luxury-medium); }
 
+/* Button Size Utilities */
+.bg-size-200 { background-size: 200% 100%; }
+.bg-pos-100 { background-position: 100% 0; }
+
+/* Brand Color Variables for Tailwind */
+:root {
+  --brand-gold-primary: #C9A96E;
+  --brand-rose-primary: #D4A574;
+  --brand-charcoal: #2A2520;
+  --brand-champagne: #F7F0E6;
+  --brand-gold-light: #E6D4A6;
+  --brand-gold-dark: #B08D57;
+  --brand-taupe: #8B7D6B;
+}
+
 /* ===========================
    ENHANCED ANIMATION SYSTEM
    Premium Timing and Easing Functions
