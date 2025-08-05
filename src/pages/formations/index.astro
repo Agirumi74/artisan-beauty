@@ -1,6 +1,7 @@
 ---
 
 import Layout from '@layouts/Layout.astro';
+import { Card, CardContent, CardTitle, CardHeader, CardFooter, CardImage, CardBadge, CardDescription } from '../../components/starwind/card';
 import FormationAvisSummary from '../../components/FormationAvisSummary.astro';
 import FormationsAvisCarousel from '../../components/FormationsAvisCarousel.astro';
 import FormationsGalleryCarousel from '../../components/FormationsGalleryCarousel.astro';
@@ -108,79 +109,87 @@ try {
       <!-- Formations Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {formations.length === 0 ? (
-          <div class="col-span-3 card-luxury p-8 text-center">
-            <div class="text-luxury-primary text-4xl mb-4">🎓</div>
-            <h3 class="text-title font-heading text-luxury-primary mb-3">Formations à venir</h3>
-            <p class="text-luxury-taupe">Nos formations d'exception seront bientôt disponibles. Contactez-nous pour être informé(e) en priorité.</p>
-          </div>
+          <Card variant="luxury" class="col-span-3 text-center">
+            <CardContent variant="luxury" class="p-8">
+              <div class="text-brand-gold-primary text-4xl mb-4">🎓</div>
+              <CardTitle variant="luxury" size="md" class="mb-3">Formations à venir</CardTitle>
+              <CardDescription variant="luxury">
+                Nos formations d'exception seront bientôt disponibles. Contactez-nous pour être informé(e) en priorité.
+              </CardDescription>
+            </CardContent>
+          </Card>
         ) : (
           formations.map((formation: any, index: number) => (
-            <div class={`card-luxury-featured group hover:scale-105 transition-all duration-500 animate-luxury-scale-in`} style={`animation-delay: ${index * 0.1}s;`}>
+            <Card 
+              variant="luxury-featured" 
+              withHover={true} 
+              withAnimation={true}
+              class={`group animate-stagger-${(index % 6) + 1}`}
+            >
               <!-- Formation Image -->
-              <div class="relative overflow-hidden rounded-t-xl">
-                {formation.image ? (
-                  <img 
-                    src={formation.image} 
-                    alt={formation.titre} 
-                    class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500" 
-                    loading="lazy" 
-                  />
-                ) : (
-                  <div class="h-56 flex items-center justify-center bg-luxury-champagne text-luxury-taupe">
-                    <div class="text-center">
-                      <div class="text-4xl mb-2">🎓</div>
-                      <div class="text-sm">Formation {formation.titre}</div>
-                    </div>
+              {formation.image ? (
+                <CardImage 
+                  src={formation.image} 
+                  alt={formation.titre}
+                  aspectRatio="photo"
+                  withOverlay={true}
+                  withHover={true}
+                >
+                  <CardBadge variant="featured" class="absolute top-4 right-4">
+                    {formation.prix} €
+                  </CardBadge>
+                </CardImage>
+              ) : (
+                <div class="h-56 flex items-center justify-center bg-gradient-to-br from-brand-champagne to-brand-gold-accent text-brand-taupe relative">
+                  <div class="text-center">
+                    <div class="text-4xl mb-2">🎓</div>
+                    <div class="text-sm font-accent">Formation {formation.titre}</div>
                   </div>
-                )}
-                
-                <!-- Floating Price Badge -->
-                <div class="absolute top-4 right-4 bg-luxury-primary text-white px-3 py-1 rounded-full text-sm font-medium shadow-luxury-soft">
-                  {formation.prix} €
+                  <CardBadge variant="featured" class="absolute top-4 right-4">
+                    {formation.prix} €
+                  </CardBadge>
                 </div>
-              </div>
+              )}
 
               <!-- Formation Content -->
-              <div class="p-6 flex-1 flex flex-col">
-                <div class="flex-1">
-                  <h3 class="text-title font-heading text-luxury-primary mb-3 group-hover:text-luxury-secondary transition-colors">
-                    {formation.titre}
-                  </h3>
-                  
-                  <div class="flex gap-2 mb-4">
-                    {formation.duree && (
-                      <span class="px-3 py-1 bg-luxury-gold-accent text-luxury-charcoal text-xs uppercase tracking-wider rounded-full">
-                        {formation.duree}
-                      </span>
-                    )}
-                    {formation.niveau && (
-                      <span class="px-3 py-1 bg-luxury-rose-accent text-luxury-charcoal text-xs uppercase tracking-wider rounded-full">
-                        {formation.niveau}
-                      </span>
-                    )}
-                  </div>
-                  
-                  <p class="text-luxury-taupe mb-6 line-clamp-3 leading-relaxed">
-                    {formation.description}
-                  </p>
-                </div>
+              <CardHeader variant="luxury-featured" hasImage={true}>
+                <CardTitle variant="luxury-featured" size="md" class="mb-3 group-hover:text-brand-rose-primary transition-colors">
+                  {formation.titre}
+                </CardTitle>
                 
-                <!-- Formation Action -->
-                <div class="mt-auto">
-                  <a 
-                    href={`/formations/${formation.slug}`} 
-                    class="btn-luxury-secondary w-full group-hover:bg-luxury-primary group-hover:text-white transition-all duration-300"
-                  >
-                    Découvrir cette formation
-                  </a>
+                <div class="flex gap-2 mb-4">
+                  {formation.duree && (
+                    <CardBadge variant="luxury">
+                      {formation.duree}
+                    </CardBadge>
+                  )}
+                  {formation.niveau && (
+                    <CardBadge variant="luxury">
+                      {formation.niveau}
+                    </CardBadge>
+                  )}
                 </div>
-              </div>
-
-              <!-- Formation Reviews Summary -->
-              <div class="px-6 pb-6">
+              </CardHeader>
+              
+              <CardContent variant="luxury-featured">
+                <CardDescription variant="luxury-featured" class="mb-6 line-clamp-3">
+                  {formation.description}
+                </CardDescription>
+              </CardContent>
+              
+              <!-- Formation Action -->
+              <CardFooter variant="luxury-featured" class="flex-col gap-4">
+                <a 
+                  href={`/formations/${formation.slug}`} 
+                  class="btn-luxury-secondary w-full group-hover:bg-brand-gold-primary group-hover:text-white transition-all duration-300"
+                >
+                  Découvrir cette formation
+                </a>
+                
+                <!-- Formation Reviews Summary -->
                 <FormationAvisSummary formationId={formation.id} />
-              </div>
-            </div>
+              </CardFooter>
+            </Card>
           ))
         )}
       </div>

@@ -1,8 +1,6 @@
 ---
 import Layout from '@layouts/Layout.astro';
-import Card from '../../components/starwind/card/Card.astro';
-import CardContent from '../../components/starwind/card/CardContent.astro';
-import CardTitle from '../../components/starwind/card/CardTitle.astro';
+import { Card, CardContent, CardTitle, CardHeader, CardFooter, CardImage, CardBadge, CardDescription } from '../../components/starwind/card';
 import Badge from '../../components/starwind/badge/Badge.astro';
 import Button from '../../components/starwind/button/Button.astro';
 import ServiceAvisSummary from '../../components/ServiceAvisSummary.astro';
@@ -85,17 +83,21 @@ try {
           />
           
           {/* Floating Cards */}
-          <div class="absolute -top-4 -left-4 card-luxury p-4 w-32 text-center animate-luxury-scale-in" style="animation-delay: 0.8s;">
-            <div class="text-luxury-primary text-2xl mb-1">💄</div>
-            <div class="text-luxury-charcoal text-xs font-medium">Expertise</div>
-            <div class="text-luxury-taupe text-xs">Professionnelle</div>
-          </div>
+          <Card variant="luxury" withAnimation={true} class="absolute -top-4 -left-4 w-32 text-center animate-stagger-4">
+            <CardContent variant="luxury" class="p-4">
+              <div class="text-brand-gold-primary text-2xl mb-1">💄</div>
+              <div class="text-brand-charcoal text-xs font-medium">Expertise</div>
+              <div class="text-brand-taupe text-xs">Professionnelle</div>
+            </CardContent>
+          </Card>
           
-          <div class="absolute -bottom-4 -right-4 card-luxury p-4 w-32 text-center animate-luxury-scale-in" style="animation-delay: 1s;">
-            <div class="text-luxury-primary text-2xl mb-1">✨</div>
-            <div class="text-luxury-charcoal text-xs font-medium">Résultat</div>
-            <div class="text-luxury-taupe text-xs">Sublimé</div>
-          </div>
+          <Card variant="luxury" withAnimation={true} class="absolute -bottom-4 -right-4 w-32 text-center animate-stagger-5">
+            <CardContent variant="luxury" class="p-4">
+              <div class="text-brand-gold-primary text-2xl mb-1">✨</div>
+              <div class="text-brand-charcoal text-xs font-medium">Résultat</div>
+              <div class="text-brand-taupe text-xs">Sublimé</div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
@@ -120,72 +122,76 @@ try {
       <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.map((service: any, index: number) => (
-          <div class={`card-luxury-featured group hover:scale-105 transition-all duration-500 animate-luxury-scale-in`} style={`animation-delay: ${index * 0.1}s;`}>
+          <Card 
+            variant="luxury-featured" 
+            withHover={true} 
+            withAnimation={true}
+            class={`group animate-stagger-${(index % 6) + 1}`}
+          >
             {/* Service Image */}
-            <div class="relative overflow-hidden rounded-t-xl">
-              {service.image ? (
-                <img 
-                  src={service.image} 
-                  alt={service.nom} 
-                  class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500" 
-                  loading="lazy" 
-                />
-              ) : (
-                <div class="h-56 flex items-center justify-center bg-luxury-champagne text-luxury-taupe">
-                  <div class="text-center">
-                    <div class="text-4xl mb-2">💄</div>
-                    <div class="text-sm">Service {service.nom}</div>
-                  </div>
+            {service.image ? (
+              <CardImage 
+                src={service.image} 
+                alt={service.nom}
+                aspectRatio="photo"
+                withOverlay={true}
+                withHover={true}
+              >
+                <CardBadge variant="featured" class="absolute top-4 right-4">
+                  {service.prix} €
+                </CardBadge>
+              </CardImage>
+            ) : (
+              <div class="h-56 flex items-center justify-center bg-gradient-to-br from-brand-champagne to-brand-gold-accent text-brand-taupe relative">
+                <div class="text-center">
+                  <div class="text-4xl mb-2">💄</div>
+                  <div class="text-sm font-accent">Service {service.nom}</div>
                 </div>
-              )}
-              
-              {/* Floating Price Badge */}
-              <div class="absolute top-4 right-4 bg-luxury-primary text-white px-3 py-1 rounded-full text-sm font-medium shadow-luxury-soft">
-                {service.prix} €
+                <CardBadge variant="featured" class="absolute top-4 right-4">
+                  {service.prix} €
+                </CardBadge>
               </div>
-            </div>
+            )}
 
             <!-- Service Content -->
-            <div class="p-6 flex-1 flex flex-col">
-              <div class="flex-1">
-                <h3 class="text-title font-heading text-luxury-primary mb-3 group-hover:text-luxury-secondary transition-colors">
-                  {service.nom}
-                </h3>
-                
-                <div class="flex gap-2 mb-4">
-                  {service.categorie && (
-                    <span class="px-3 py-1 bg-luxury-gold-accent text-luxury-charcoal text-xs uppercase tracking-wider rounded-full">
-                      {service.categorie}
-                    </span>
-                  )}
-                  {service.duree && (
-                    <span class="px-3 py-1 bg-luxury-rose-accent text-luxury-charcoal text-xs uppercase tracking-wider rounded-full">
-                      {service.duree}
-                    </span>
-                  )}
-                </div>
-                
-                <p class="text-luxury-taupe mb-6 line-clamp-3 leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
+            <CardHeader variant="luxury-featured" hasImage={true}>
+              <CardTitle variant="luxury-featured" size="md" class="mb-3 group-hover:text-brand-rose-primary transition-colors">
+                {service.nom}
+              </CardTitle>
               
-              <!-- Service Action -->
-              <div class="mt-auto">
-                <a 
-                  href={`/services/${service.slug}`} 
-                  class="btn-luxury-secondary w-full group-hover:bg-luxury-primary group-hover:text-white transition-all duration-300"
-                >
-                  Découvrir ce service
-                </a>
+              <div class="flex gap-2 mb-4">
+                {service.categorie && (
+                  <CardBadge variant="luxury">
+                    {service.categorie}
+                  </CardBadge>
+                )}
+                {service.duree && (
+                  <CardBadge variant="luxury">
+                    {service.duree}
+                  </CardBadge>
+                )}
               </div>
-            </div>
-
-            <!-- Service Reviews Summary -->
-            <div class="px-6 pb-6">
+            </CardHeader>
+            
+            <CardContent variant="luxury-featured">
+              <CardDescription variant="luxury-featured" class="mb-6 line-clamp-3">
+                {service.description}
+              </CardDescription>
+            </CardContent>
+            
+            <!-- Service Action -->
+            <CardFooter variant="luxury-featured" class="flex-col gap-4">
+              <a 
+                href={`/services/${service.slug}`} 
+                class="btn-luxury-secondary w-full group-hover:bg-brand-gold-primary group-hover:text-white transition-all duration-300"
+              >
+                Découvrir ce service
+              </a>
+              
+              <!-- Service Reviews Summary -->
               <ServiceAvisSummary serviceId={service.id} />
-            </div>
-          </div>
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </div>
