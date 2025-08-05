@@ -21,32 +21,32 @@ function generateStarRating(rating: number) {
 }
 ---
 {avis.length > 0 ? (
-  <div class="w-full overflow-x-auto py-4">
-    <div class="flex gap-6 min-w-full pb-4">
+  <div class="w-full overflow-x-auto py-2 sm:py-4">
+    <div class="flex gap-3 sm:gap-4 lg:gap-6 min-w-full pb-2 sm:pb-4">
       {avis.map((a, index) => {
         const userName = a.utilisateur || a.nom || 'Client anonyme';
         const avatar = generateUserAvatar(userName);
         const stars = generateStarRating(a.note || 5);
         return (
-          <div class={`card-luxury hover-lift glass-morphism p-6 min-w-[320px] max-w-xs flex-shrink-0 animate-luxury-slide-in animate-stagger-${(index % 4) + 1}`}>
+          <div class={`card-luxury hover-lift glass-morphism p-3 sm:p-4 lg:p-6 min-w-[280px] sm:min-w-[320px] max-w-xs flex-shrink-0 animate-luxury-slide-in animate-stagger-${(index % 4) + 1}`}>
             <!-- User Avatar & Info -->
-            <div class="flex items-center mb-4">
+            <div class="flex items-center mb-3 lg:mb-4">
               <div 
-                class="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold mr-4 shadow-luxury"
+                class="w-10 lg:w-12 h-10 lg:h-12 rounded-full flex items-center justify-center text-white font-semibold mr-3 lg:mr-4 shadow-luxury flex-shrink-0"
                 style={`background: ${avatar.bgColor}`}
               >
                 {avatar.initials}
               </div>
-              <div>
-                <div class="font-semibold text-luxury-dark text-base">{userName}</div>
-                <div class="text-luxury-light text-sm">Service réalisé</div>
+              <div class="min-w-0">
+                <div class="font-semibold text-luxury-dark text-sm lg:text-base truncate">{userName}</div>
+                <div class="text-luxury-light text-xs lg:text-sm">Service réalisé</div>
               </div>
             </div>
             
             <!-- Star Rating -->
-            <div class="flex items-center mb-3">
-              <span class="text-yellow-500 text-lg mr-2">{stars}</span>
-              <span class="text-luxury-light text-sm">({a.note}/5)</span>
+            <div class="flex items-center mb-2 lg:mb-3">
+              <span class="text-yellow-500 text-base lg:text-lg mr-2">{stars}</span>
+              <span class="text-luxury-light text-xs lg:text-sm">({a.note}/5)</span>
             </div>
             
             <!-- Comment -->

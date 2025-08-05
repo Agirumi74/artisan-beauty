@@ -86,5 +86,12 @@ import Footer from '../components/Footer.astro';
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		overflow-x: hidden; /* Prevent horizontal scrolling */
+	}
+	
+	/* Ensure container doesn't cause overflow */
+	.container {
+		max-width: 100%;
+		overflow-x: hidden;
 	}
 </style>
