@@ -23,14 +23,14 @@ const { images = [] } = Astro.props;
             />
             
             <!-- Overlay with title -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2 sm:p-3 lg:p-4">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2 sm:p-3 lg:p-4 pointer-events-none">
               <div class="text-white text-xs sm:text-sm font-medium">
                 {img.title || 'Réalisation Artisan Beauty'}
               </div>
             </div>
             
             <!-- View icon -->
-            <div class="absolute top-2 sm:top-3 right-2 sm:right-3 w-6 sm:w-8 h-6 sm:h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="absolute top-2 sm:top-3 right-2 sm:right-3 w-6 sm:w-8 h-6 sm:h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
               <svg class="w-3 sm:w-4 h-3 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -45,42 +45,42 @@ const { images = [] } = Astro.props;
   <!-- Gallery Modal -->
   <div id="gallery-modal" class="fixed inset-0 z-50 hidden">
     <!-- Backdrop -->
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" onclick="closeGalleryModal()"></div>
+    <div class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity duration-300" onclick="closeGalleryModal()"></div>
     
     <!-- Modal Content -->
-    <div class="relative h-full flex items-center justify-center p-2 sm:p-4">
-      <div class="glass-morphism-strong max-w-full sm:max-w-4xl max-h-full rounded-lg sm:rounded-2xl overflow-hidden">
+    <div class="relative h-full flex items-center justify-center p-4 sm:p-8">
+      <div class="relative bg-white/10 backdrop-blur-xl max-w-5xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl border border-white/20">
         <!-- Modal Header -->
-        <div class="flex items-center justify-between p-3 sm:p-4 border-b border-white/20">
-          <h3 id="modal-title" class="text-sm sm:text-lg font-semibold text-white truncate pr-4"></h3>
+        <div class="flex items-center justify-between p-4 sm:p-6 border-b border-white/20 bg-black/20">
+          <h3 id="modal-title" class="text-lg sm:text-xl font-heading font-semibold text-white truncate pr-4"></h3>
           <button 
             onclick="closeGalleryModal()"
-            class="w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-colors flex-shrink-0"
+            class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition-all duration-300 hover:scale-110 flex-shrink-0"
             aria-label="Fermer la galerie"
           >
-            <svg class="w-3 sm:w-4 h-3 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
         
         <!-- Modal Body -->
-        <div class="relative">
+        <div class="relative bg-black/10">
           <img 
             id="modal-image" 
             src="" 
             alt="" 
-            class="w-full max-h-[60vh] sm:max-h-[70vh] object-contain"
+            class="w-full max-h-[70vh] object-contain"
           />
           
           <!-- Navigation Arrows -->
           <button 
             id="prev-btn"
             onclick="navigateGallery(-1)"
-            class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center text-white transition-colors"
+            class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
             aria-label="Image précédente"
           >
-            <svg class="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
           </button>
@@ -88,18 +88,18 @@ const { images = [] } = Astro.props;
           <button 
             id="next-btn"
             onclick="navigateGallery(1)"
-            class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center text-white transition-colors"
+            class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
             aria-label="Image suivante"
           >
-            <svg class="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
           </button>
         </div>
         
         <!-- Modal Footer -->
-        <div class="p-2 sm:p-4 text-center">
-          <span id="modal-counter" class="text-xs sm:text-sm text-white/80"></span>
+        <div class="p-4 sm:p-6 text-center bg-black/20 border-t border-white/20">
+          <span id="modal-counter" class="text-sm sm:text-base text-white/90 font-medium"></span>
         </div>
       </div>
     </div>
