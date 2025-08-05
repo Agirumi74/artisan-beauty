@@ -1,0 +1,49 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { tv } from "tailwind-variants";
+
+interface Props extends HTMLAttributes<"div"> {
+	variant?: "default" | "luxury" | "featured" | "new";
+	size?: "sm" | "md" | "lg";
+}
+
+const cardBadge = tv({
+	base: [
+		"inline-flex items-center justify-center",
+		"rounded-full font-medium text-center",
+		"uppercase tracking-wider transition-all duration-300",
+	],
+	variants: {
+		variant: {
+			default: "bg-gray-100 text-gray-800",
+			luxury: [
+				"bg-gradient-to-r from-brand-gold-accent to-brand-champagne",
+				"text-brand-charcoal border border-brand-gold-light",
+			],
+			featured: [
+				"bg-gradient-to-r from-brand-gold-primary to-brand-rose-primary",
+				"text-white shadow-luxury-soft",
+			],
+			new: [
+				"bg-gradient-to-r from-brand-rose-primary to-brand-rose-light",
+				"text-white shadow-luxury-soft animate-pulse-luxury",
+			],
+		},
+		size: {
+			sm: "px-2 py-1 text-xs",
+			md: "px-3 py-1.5 text-sm",
+			lg: "px-4 py-2 text-base",
+		},
+	},
+	defaultVariants: {
+		variant: "default",
+		size: "sm",
+	},
+});
+
+const { variant, size, class: className, ...rest } = Astro.props;
+---
+
+<div class={cardBadge({ variant, size, class: className })} {...rest}>
+	<slot />
+</div>

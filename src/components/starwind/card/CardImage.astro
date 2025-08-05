@@ -1,0 +1,69 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { tv } from "tailwind-variants";
+
+interface Props extends HTMLAttributes<"div"> {
+	src: string;
+	alt: string;
+	aspectRatio?: "square" | "video" | "photo" | "portrait";
+	withOverlay?: boolean;
+	withHover?: boolean;
+}
+
+const cardImage = tv({
+	base: "relative overflow-hidden",
+	variants: {
+		aspectRatio: {
+			square: "aspect-square",
+			video: "aspect-video",
+			photo: "aspect-[4/3]",
+			portrait: "aspect-[3/4]",
+		},
+		withOverlay: {
+			true: [
+				"before:absolute before:inset-0 before:bg-gradient-to-t",
+				"before:from-black/20 before:to-transparent before:z-10",
+				"before:transition-opacity before:duration-300",
+			],
+			false: "",
+		},
+		withHover: {
+			true: [
+				"hover:before:from-brand-gold-primary/20",
+				"hover:before:to-brand-rose-primary/10",
+			],
+			false: "",
+		},
+	},
+	defaultVariants: {
+		aspectRatio: "photo",
+		withOverlay: false,
+		withHover: true,
+	},
+});
+
+const imageStyles = tv({
+	base: "w-full h-full object-cover transition-transform duration-500",
+	variants: {
+		withHover: {
+			true: "group-hover:scale-110",
+			false: "",
+		},
+	},
+	defaultVariants: {
+		withHover: true,
+	},
+});
+
+const { src, alt, aspectRatio, withOverlay, withHover, class: className, ...rest } = Astro.props;
+---
+
+<div class={cardImage({ aspectRatio, withOverlay, withHover, class: className })} {...rest}>
+	<img 
+		src={src} 
+		alt={alt} 
+		class={imageStyles({ withHover })}
+		loading="lazy"
+	/>
+	<slot />
+</div>

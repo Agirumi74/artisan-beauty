@@ -2,13 +2,33 @@
 import type { HTMLAttributes } from "astro/types";
 import { tv } from "tailwind-variants";
 
-type Props = HTMLAttributes<"div">;
+interface Props extends HTMLAttributes<"div"> {
+	variant?: "default" | "luxury" | "luxury-featured";
+	hasImage?: boolean;
+}
 
-const cardHeader = tv({ base: "flex flex-col space-y-2 p-8" });
+const cardHeader = tv({
+	base: "flex flex-col space-y-2",
+	variants: {
+		variant: {
+			default: "p-8",
+			luxury: "p-6 lg:p-8",
+			"luxury-featured": "p-6 lg:p-8",
+		},
+		hasImage: {
+			true: "pt-0",
+			false: "",
+		},
+	},
+	defaultVariants: {
+		variant: "default",
+		hasImage: false,
+	},
+});
 
-const { class: className, ...rest } = Astro.props;
+const { variant, hasImage, class: className, ...rest } = Astro.props;
 ---
 
-<div class={cardHeader({ class: className })} {...rest}>
+<div class={cardHeader({ variant, hasImage, class: className })} {...rest}>
 	<slot />
 </div>

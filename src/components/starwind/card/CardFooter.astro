@@ -2,13 +2,27 @@
 import type { HTMLAttributes } from "astro/types";
 import { tv } from "tailwind-variants";
 
-type Props = HTMLAttributes<"div">;
+interface Props extends HTMLAttributes<"div"> {
+	variant?: "default" | "luxury" | "luxury-featured";
+}
 
-const cardFooter = tv({ base: "flex items-center p-8 pt-0" });
+const cardFooter = tv({
+	base: "flex items-center pt-0",
+	variants: {
+		variant: {
+			default: "p-8",
+			luxury: "px-6 pb-6 lg:px-8 lg:pb-8",
+			"luxury-featured": "px-6 pb-6 lg:px-8 lg:pb-8",
+		},
+	},
+	defaultVariants: {
+		variant: "default",
+	},
+});
 
-const { class: className, ...rest } = Astro.props;
+const { variant, class: className, ...rest } = Astro.props;
 ---
 
-<div class={cardFooter({ class: className })} {...rest}>
+<div class={cardFooter({ variant, class: className })} {...rest}>
 	<slot />
 </div>

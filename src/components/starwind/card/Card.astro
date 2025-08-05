@@ -2,13 +2,52 @@
 import type { HTMLAttributes } from "astro/types";
 import { tv } from "tailwind-variants";
 
-type Props = HTMLAttributes<"div">;
+interface Props extends HTMLAttributes<"div"> {
+	variant?: "default" | "luxury" | "luxury-featured";
+	withHover?: boolean;
+	withAnimation?: boolean;
+}
 
-const card = tv({ base: "bg-card text-card-foreground rounded-2xl border shadow-sm" });
+const card = tv({
+	base: "rounded-2xl border transition-all duration-300 ease-out overflow-hidden relative",
+	variants: {
+		variant: {
+			default: "bg-card text-card-foreground shadow-sm",
+			luxury: [
+				"bg-brand-ivory",
+				"border-brand-champagne",
+				"shadow-luxury-soft",
+				"hover:shadow-luxury-medium",
+			],
+			"luxury-featured": [
+				"bg-gradient-to-br from-brand-cream to-brand-champagne",
+				"border-2 border-brand-gold-light",
+				"shadow-luxury-medium",
+				"hover:shadow-luxury-strong",
+				"before:absolute before:top-0 before:left-0 before:right-0 before:h-1",
+				"before:bg-gradient-to-r before:from-brand-gold-primary before:to-brand-rose-primary",
+				"before:content-['']",
+			],
+		},
+		withHover: {
+			true: "hover:transform hover:-translate-y-2 hover:scale-[1.02]",
+			false: "",
+		},
+		withAnimation: {
+			true: "animate-luxury-fade-in",
+			false: "",
+		},
+	},
+	defaultVariants: {
+		variant: "default",
+		withHover: true,
+		withAnimation: false,
+	},
+});
 
-const { class: className, ...rest } = Astro.props;
+const { variant, withHover, withAnimation, class: className, ...rest } = Astro.props;
 ---
 
-<div class={card({ class: className })} {...rest}>
+<div class={card({ variant, withHover, withAnimation, class: className })} {...rest}>
 	<slot />
 </div>
